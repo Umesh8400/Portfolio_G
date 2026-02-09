@@ -8,17 +8,18 @@
         /* --- CSS VARIABLES & RESET --- */
         :root {
             --primary: #3498db;
-            --secondary: #2ecc71; /* Green for Start */
-            --highlight: #f1c40f; /* Yellow for activity */
-            --white: #ffffff;
+            --secondary: #2ecc71; /* Green */
+            --merc-silver: #e0e0e0;
+            --bg-dark: #0f172a;
+            --glass: rgba(15, 23, 42, 0.85);
             --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
 
         body {
-            background-color: #0f172a;
-            color: var(--white);
+            background-color: var(--bg-dark);
+            color: white;
             overflow: hidden;
             height: 100vh;
             width: 100vw;
@@ -27,238 +28,207 @@
 
         /* --- BACKGROUNDS --- */
         #bg-image {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover;
-            background-position: center;
-            z-index: -3;
-            transition: opacity 1s ease-in-out;
-            opacity: 0.8;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            z-index: -3; opacity: 0.4;
         }
-
+        
         .stars {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px);
-            background-size: 550px 550px;
-            z-index: -2;
-            opacity: 0.5;
-            animation: twinkle 5s infinite;
+            background-size: 550px 550px; z-index: -2; opacity: 0.5; animation: twinkle 5s infinite;
         }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
-        }
-
-        .overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.7);
-            z-index: -1;
-        }
+        @keyframes twinkle { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
 
         /* --- SCREENS --- */
         .screen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
             transition: opacity 0.8s ease, transform 0.8s ease;
             transform: translateY(20px);
         }
+        .screen.active { opacity: 1; pointer-events: all; transform: translateY(0); }
 
-        .screen.active {
-            opacity: 1;
-            pointer-events: all;
-            transform: translateY(0);
-        }
-
-        /* --- SCREEN 1: HELLO CLOUD --- */
-        .hello-cloud { position: relative; width: 90vw; height: 60vh; max-width: 800px; }
-        .cloud-word { position: absolute; color: rgba(255,255,255,0.8); font-weight: bold; animation: float 5s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
-        .w-main { font-size: 5rem; color: #fff; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; text-shadow: 0 0 20px rgba(255,255,255,0.4); animation: pulse-main 2s infinite; }
-        @keyframes pulse-main { 0% { text-shadow: 0 0 20px rgba(255,255,255,0.4); } 50% { text-shadow: 0 0 30px rgba(52, 152, 219, 0.6); } 100% { text-shadow: 0 0 20px rgba(255,255,255,0.4); } }
+        /* --- SCREEN 1: HELLO --- */
+        .hello-cloud { position: relative; width: 90vw; height: 60vh; }
+        .cloud-word { position: absolute; color: rgba(255,255,255,0.8); font-weight: bold; animation: float 5s infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .w-main { font-size: 5rem; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+        /* Scattered words */
+        .w-1 { top: 20%; left: 20%; font-size: 1.5rem; } .w-2 { top: 15%; right: 25%; font-size: 2rem; }
+        .w-3 { bottom: 25%; left: 15%; font-size: 2.5rem; } .w-4 { bottom: 20%; right: 20%; font-size: 1.8rem; }
         
-        /* Scattered words positions */
-        .w-1 { top: 20%; left: 20%; font-size: 1.5rem; transform: rotate(-10deg); animation-delay: 0.5s; }
-        .w-2 { top: 15%; right: 25%; font-size: 2rem; animation-delay: 1s; }
-        .w-3 { bottom: 25%; left: 15%; font-size: 2.5rem; font-family: serif; animation-delay: 1.5s; }
-        .w-4 { bottom: 20%; right: 20%; font-size: 1.8rem; transform: rotate(5deg); animation-delay: 2s; }
-        .w-5 { top: 40%; left: 10%; font-size: 1.4rem; transform: rotate(-90deg); animation-delay: 2.5s; }
-        .w-6 { top: 35%; right: 10%; font-size: 1.6rem; opacity: 0.7; animation-delay: 3s; }
-        .w-7 { bottom: 10%; left: 40%; font-size: 1.8rem; animation-delay: 3.5s; }
-        .w-8 { top: 10%; left: 45%; font-size: 1.5rem; animation-delay: 4s; }
-        .w-9 { top: 60%; right: 5%; font-size: 1.5rem; transform: rotate(90deg); animation-delay: 4.5s; }
-        .w-10 { top: 60%; left: 25%; font-size: 1.2rem; animation-delay: 5s; }
-
-        .welcome-line { margin-top: 2rem; font-size: 1.5rem; letter-spacing: 4px; text-transform: uppercase; border-top: 1px solid white; padding-top: 1rem; animation: fadeIn 2s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .welcome-line { margin-top: 2rem; font-size: 1.5rem; border-top: 1px solid white; padding-top: 1rem; }
+        .start-btn { margin-top: 30px; padding: 10px 30px; background: rgba(255,255,255,0.1); border: 1px solid white; color: white; cursor: pointer; z-index: 20; }
 
         /* --- SCREEN 2: LANGUAGES --- */
-        .lang-btn { padding: 15px 50px; font-size: 1.5rem; margin: 20px; background: transparent; border: 2px solid white; color: white; cursor: pointer; transition: 0.3s; text-transform: uppercase; animation: pulse 2s infinite; }
+        .lang-btn { padding: 15px 50px; font-size: 1.5rem; margin: 20px; background: transparent; border: 2px solid white; color: white; cursor: pointer; transition: 0.3s; }
         .lang-btn:hover { background: white; color: var(--primary); transform: scale(1.05); }
 
         /* --- STANDARD CONTENT SLIDES --- */
-        .content-container { display: flex; align-items: center; justify-content: center; max-width: 1200px; padding: 20px; width: 100%; }
-        .side-image { width: 300px; height: auto; margin-right: 40px; border-radius: 10px; box-shadow: 0 0 20px rgba(52, 152, 219, 0.4); animation: slideInLeft 1s ease-out; }
-        @keyframes slideInLeft { from { transform: translateX(-50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        .text-content { max-width: 600px; animation: slideInRight 1s ease-out; }
-        @keyframes slideInRight { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        
-        .profile-photo { width: 200px; height: 200px; border-radius: 50%; border: 4px solid var(--primary); object-fit: cover; margin-bottom: 20px; box-shadow: 0 0 30px rgba(52, 152, 219, 0.4); animation: rotateIn 1.5s ease-out; }
-        @keyframes rotateIn { from { transform: rotate(-10deg); opacity: 0; } to { transform: rotate(0); opacity: 1; } }
+        .content-container { display: flex; align-items: center; justify-content: center; max-width: 1200px; padding: 20px; }
+        .side-image { width: 300px; height: auto; margin-right: 40px; border-radius: 10px; }
+        .text-content { max-width: 600px; }
+        .profile-photo { width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--primary); object-fit: cover; margin-bottom: 20px; }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; } h2 { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
+        p { font-size: 1.1rem; line-height: 1.5; margin-bottom: 10px; }
+        .skills-tag { display: inline-block; padding: 5px 15px; margin: 3px; background: rgba(255,255,255,0.1); border-left: 3px solid var(--primary); }
+        .testimonial { background: rgba(255,255,255,0.1); padding: 15px; margin: 10px 0; border-radius: 10px; }
 
-        h1 { font-size: 2.5rem; margin-bottom: 1rem; animation: fadeIn 1s; }
-        h2 { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
-        h4 { font-size: 1.1rem; color: #cbd5e1; margin-bottom: 1rem; font-style: italic; }
-        p { font-size: 1.1rem; line-height: 1.5; text-align: left; margin-bottom: 10px; }
-        
-        .skills-tag { display: inline-block; padding: 6px 15px; margin: 4px; background: rgba(255,255,255,0.1); border-left: 3px solid var(--primary); transition: transform 0.3s; font-size: 0.9rem; }
-        .testimonial { background: rgba(255,255,255,0.1); padding: 15px; margin: 10px 0; border-radius: 10px; text-align: left; animation: fadeIn 1.5s; font-size: 0.95rem; }
-
-        /* --- MAP & EXPERIENCE ANIMATION STYLES --- */
-        #map-wrapper {
-            position: relative;
-            width: 100vw;
-            height: 80vh;
-            overflow: hidden;
-            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 70%);
-            display: none; /* Hidden by default */
+        /* --- MAP & EXPERIENCE ANIMATION (Advanced) --- */
+        #map-viewport {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden; background-color: #0b1120;
         }
-        
-        /* Germany Silhouette */
-        #germany-svg {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(5); /* Start zoomed out */
-            width: 600px; height: auto;
-            opacity: 0;
-            transition: all 1.5s ease-in-out;
-            fill: #334155;
+
+        /* The Map Image Layer */
+        #geo-map {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* Abstract Tech Map Background */
+            background-image: radial-gradient(circle at 60% 40%, #1e293b 0%, #0f172a 60%),
+                              linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent),
+                              linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
+            background-size: 100% 100%, 50px 50px, 50px 50px;
+            transform-origin: 60% 40%; /* Zoom into "Germany" area */
+            transform: scale(1);
+            transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 1;
         }
 
-        /* The Grid System */
-        .tech-grid {
+        /* Locations Markers */
+        .city-marker {
+            position: absolute; z-index: 10;
+            display: flex; flex-direction: column; align-items: center;
+            opacity: 0; transition: opacity 1s;
+        }
+        .pin {
+            width: 20px; height: 20px; border-radius: 50%;
+            border: 3px solid white; box-shadow: 0 0 15px white;
+            position: relative;
+        }
+        .pin::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 60px; height: 60px; border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid white; animation: ripple 2s infinite;
+        }
+        @keyframes ripple { 0% { width:0; height:0; opacity:1; } 100% { width:80px; height:80px; opacity:0; } }
+        
+        .city-label {
+            margin-top: 10px; background: rgba(0,0,0,0.7);
+            padding: 5px 10px; border-radius: 5px; font-size: 0.9rem; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* Specific Positions (Relative to screen center after zoom) */
+        /* Neuffen is South-East of Stuttgart, Untertürkheim is Central/East */
+        #marker-neuffen { top: 75%; left: 60%; } /* Neuffen */
+        #marker-neuffen .pin { background: var(--secondary); border-color: var(--secondary); box-shadow: 0 0 15px var(--secondary); }
+        
+        #marker-merc { top: 35%; left: 50%; } /* Untertürkheim */
+        #marker-merc .pin { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+
+        /* The Road (SVG) */
+        #road-svg-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(52, 152, 219, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(52, 152, 219, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(1000px) rotateX(20deg) translateY(0) scale(0.5);
-            transition: transform 1.5s ease-in-out;
-            z-index: 2;
-            opacity: 0;
+            z-index: 5; pointer-events: none;
+            opacity: 0; transition: opacity 1s;
         }
-
-        /* Locations */
-        .location-node {
-            position: absolute;
-            width: 80px; height: 80px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            background: rgba(15, 23, 42, 0.9);
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            z-index: 10;
-            box-shadow: 0 0 20px var(--primary);
-            transform: scale(0);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .road-path {
+            fill: none; stroke: rgba(255,255,255,0.3); stroke-width: 4; stroke-dasharray: 10, 5;
         }
-        .node-img { width: 40px; height: 40px; object-fit: contain; margin-bottom: 5px; }
-        .node-label { font-size: 0.8rem; font-weight: bold; color: white; text-align: center; }
-
-        /* Neuffen Position */
-        #node-elring { top: 60%; left: 20%; border-color: var(--secondary); box-shadow: 0 0 20px var(--secondary); }
-        /* Mercedes Position */
-        #node-merc { top: 30%; left: 70%; }
-
-        /* The Road */
-        .road-line {
-            position: absolute;
-            top: 60%; left: 20%;
-            width: 0; height: 4px;
-            background: linear-gradient(90deg, var(--secondary), var(--primary));
-            transform-origin: left center;
-            transform: rotate(-30deg); /* Angle from Neuffen to Merc */
-            z-index: 5;
-            transition: width 2s linear;
-        }
-
+        
         /* The Car */
-        #ev-car {
-            position: absolute;
-            top: -20px; left: 0; /* Relative to road line */
-            font-size: 2rem;
-            color: white;
+        #moving-car {
+            position: absolute; font-size: 2rem; z-index: 20;
+            top: 73%; left: 58%; /* Start at Neuffen */
+            transition: top 2.5s linear, left 2.5s linear, transform 0.5s;
             opacity: 0;
-            transition: left 2s linear, opacity 0.3s;
-            transform: rotateY(180deg); /* Face right */
+            filter: drop-shadow(0 0 10px white);
         }
 
-        /* Job Cards (Popups) */
+        /* Experience Containers */
+        .exp-container {
+            position: absolute;
+            z-index: 30;
+            display: flex; flex-direction: column; gap: 10px;
+            opacity: 0; transition: opacity 0.5s;
+        }
+        
+        /* Connector Lines */
+        .exp-container::before {
+            content: ''; position: absolute;
+            background: white; z-index: -1;
+        }
+
+        /* Position Experiences */
+        /* Neuffen Experience (Left of marker) */
+        #exp-group-neuffen { bottom: 20%; right: 45%; align-items: flex-end; }
+        #exp-group-neuffen::before {
+            top: 80%; right: -50px; width: 60px; height: 2px;
+            transform: rotate(30deg); background: var(--secondary);
+        }
+
+        /* Mercedes Experience (Right of marker) */
+        #exp-group-merc { top: 15%; left: 60%; align-items: flex-start; }
+        #exp-group-merc::before {
+            top: 50%; left: -60px; width: 70px; height: 2px;
+            transform: rotate(-20deg); background: var(--primary);
+        }
+
+        /* Job Cards (Accordion Style) */
         .job-card {
-            position: absolute;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-left: 4px solid #888;
+            padding: 10px 15px;
+            border-radius: 5px;
             width: 320px;
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid var(--primary);
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 20;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.5s ease;
-            backdrop-filter: blur(5px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 50px; /* Collapsed height */
+            position: relative;
         }
-        .job-card.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
         
-        /* Collapsed State (Title Only) */
-        .job-card.collapsed {
-            width: 250px;
-            padding: 10px;
-            background: rgba(52, 152, 219, 0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+        .job-card:hover { transform: translateX(5px); background: rgba(30, 41, 59, 0.95); }
+
+        .job-card.active {
+            height: auto; /* Expand */
+            border-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
-        .job-card.collapsed .job-details { display: none; }
-        .job-card.collapsed h3 { font-size: 0.9rem; margin: 0; }
-        .job-card.collapsed h4 { font-size: 0.7rem; margin: 0; }
 
-        .job-card h3 { color: var(--primary); font-size: 1rem; margin-bottom: 5px; }
-        .job-card h4 { color: #cbd5e1; font-size: 0.8rem; font-style: italic; margin-bottom: 10px; }
-        .job-card .job-details { font-size: 0.85rem; line-height: 1.4; }
-
-        /* Specific Card Positions */
-        #card-elring-1 { top: 35%; left: 25%; } /* Internship */
-        #card-elring-2 { top: 65%; left: 25%; } /* Working Student */
+        .job-card h3 { font-size: 1rem; margin: 0; color: #fff; pointer-events: none; }
+        .job-card h4 { font-size: 0.8rem; color: #cbd5e1; margin-top: 5px; pointer-events: none; }
+        .job-card .desc {
+            margin-top: 15px; font-size: 0.85rem; line-height: 1.4; color: #ddd;
+            display: none; pointer-events: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;
+        }
+        .job-card.active .desc { display: block; animation: fadeIn 0.5s; }
         
-        #card-merc-1 { top: 5%; left: 50%; } /* Working Student */
-        #card-merc-2 { top: 35%; left: 50%; } /* Master Thesis */
-        #card-merc-3 { top: 65%; left: 50%; } /* Current */
+        /* Specific Colors */
+        .elring-card { border-left-color: var(--secondary); }
+        .merc-card { border-left-color: var(--primary); }
 
         /* --- NAVIGATION UI --- */
         .nav-ui { position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: space-between; padding: 0 40px; z-index: 100; display: none; }
         .nav-btn { font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; opacity: 0.7; transition: 0.3s; text-transform: uppercase; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 20px; }
         .nav-btn:hover { opacity: 1; color: var(--primary); transform: scale(1.05); }
-        .btn-next { animation: pulse 2s infinite; border: 1px solid var(--primary); }
         
         /* Click Zones */
         .click-zone { position: absolute; top:0; height: 100%; z-index: 50; }
-        .zone-right { right: 0; width: 30%; cursor: e-resize; }
-        .zone-left { left: 0; width: 15%; cursor: w-resize; }
-        
-        .start-btn { margin-top: 30px; padding: 10px 30px; background: rgba(255,255,255,0.1); border: 1px solid white; color: white; cursor: pointer; z-index: 20; }
+        .zone-right { right: 0; width: 20%; cursor: e-resize; }
+        .zone-left { left: 0; width: 10%; cursor: w-resize; }
+
     </style>
 </head>
 <body onload="initSystem()">
 
     <div id="stars-layer" class="stars"></div>
     <div id="bg-image"></div>
-    <div class="overlay"></div>
-
+    
     <div class="click-zone zone-left" onclick="goBack()"></div>
     <div class="click-zone zone-right" onclick="goNext()"></div>
 
@@ -268,9 +238,8 @@
             <span class="cloud-word w-1">Namaskar</span>
             <span class="cloud-word w-2">Bonjour</span>
             <span class="cloud-word w-3">Hallo</span>
-            <span class="cloud-word w-8">Konnichiwa</span>
         </div>
-        <div class="welcome-line">Welcome to My Battery Engineering Portfolio</div>
+        <div class="welcome-line">My Battery Engineering Portfolio</div>
         <button class="start-btn" onclick="goToLanguages()">Start &#8594;</button>
     </div>
 
@@ -286,95 +255,79 @@
         </div>
 
     <div id="screen-map" class="screen">
-        <div id="map-wrapper">
-            <svg id="germany-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M40,10 L50,5 L60,10 L65,25 L75,20 L80,30 L75,50 L85,60 L70,80 L50,90 L30,85 L20,60 L15,40 L25,20 Z" />
+        <div id="map-viewport">
+            <div id="geo-map"></div>
+
+            <svg id="road-svg-container" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path class="road-path" d="M 60 75 Q 50 60 50 35" />
             </svg>
-            <div class="tech-grid" id="tech-grid"></div>
 
-            <div id="node-elring" class="location-node">
-                <div style="font-size:2rem;">🏭</div>
-                <div class="node-label">Neuffen<br>(ElringKlinger)</div>
-            </div>
-            <div id="node-merc" class="location-node">
-                <div style="font-size:2rem;">🏢</div>
-                <div class="node-label">Untertürkheim<br>(Mercedes-Benz)</div>
+            <div id="moving-car">🚗</div>
+
+            <div id="marker-neuffen" class="city-marker">
+                <div class="pin"></div>
+                <div class="city-label">Neuffen<br><span style="font-size:0.7rem; color:var(--secondary)">ElringKlinger</span></div>
             </div>
 
-            <div class="road-line" id="road-line">
-                <div id="ev-car">🚗</div>
+            <div id="marker-merc" class="city-marker">
+                <div class="pin"></div>
+                <div class="city-label">Untertürkheim<br><span style="font-size:0.7rem; color:var(--primary)">Mercedes-Benz</span></div>
             </div>
 
-            <div id="card-elring-1" class="job-card">
-                <h3 id="txt-ek-1-title">Internship</h3>
-                <h4 id="txt-ek-1-date">05.2023 – 11.2023</h4>
-                <div class="job-details" id="txt-ek-1-desc">
-                    • Battery System Tests & Validation<br>
-                    • Impedance measurements on Al-foils<br>
-                    • Test protocols & documentation
+            <div id="exp-group-neuffen" class="exp-container">
+                <div class="job-card elring-card" onclick="toggleCard(this)">
+                    <h3 id="txt-ek-1-t">Internship</h3>
+                    <h4 id="txt-ek-1-d">05.2023 – 11.2023</h4>
+                    <div class="desc" id="txt-ek-1-desc">Content...</div>
                 </div>
-            </div>
-            <div id="card-elring-2" class="job-card">
-                <h3 id="txt-ek-2-title">Working Student</h3>
-                <h4 id="txt-ek-2-date">11.2023 – 01.2024</h4>
-                <div class="job-details" id="txt-ek-2-desc">
-                    • Testing battery components & cells<br>
-                    • Evaluating results (X-Frame, DIAdem)<br>
-                    • Hardware design (ECUs, Microcontrollers)
+                <div class="job-card elring-card" onclick="toggleCard(this)">
+                    <h3 id="txt-ek-2-t">Working Student</h3>
+                    <h4 id="txt-ek-2-d">11.2023 – 01.2024</h4>
+                    <div class="desc" id="txt-ek-2-desc">Content...</div>
                 </div>
             </div>
 
-            <div id="card-merc-1" class="job-card">
-                <h3 id="txt-mb-1-title">Working Student (HV Battery)</h3>
-                <h4 id="txt-mb-1-date">02.2024 – 11.2024</h4>
-                <div class="job-details" id="txt-mb-1-desc">
-                    • MATLAB automation (95% workload reduction)<br>
-                    • 3D Simulation (CST Studio Suite)<br>
-                    • Impedance measurements
+            <div id="exp-group-merc" class="exp-container">
+                <div class="job-card merc-card" onclick="toggleCard(this)">
+                    <h3 id="txt-mb-1-t">Working Student</h3>
+                    <h4 id="txt-mb-1-d">02.2024 – 11.2024</h4>
+                    <div class="desc" id="txt-mb-1-desc">Content...</div>
+                </div>
+                <div class="job-card merc-card" onclick="toggleCard(this)">
+                    <h3 id="txt-mb-2-t">Master Thesis</h3>
+                    <h4 id="txt-mb-2-d">12.2024 – 07.2025</h4>
+                    <div class="desc" id="txt-mb-2-desc">Content...</div>
+                </div>
+                <div class="job-card merc-card" onclick="toggleCard(this)">
+                    <h3 id="txt-mb-3-t">Working Student (Current)</h3>
+                    <h4 id="txt-mb-3-d">08.2025 – Ongoing</h4>
+                    <div class="desc" id="txt-mb-3-desc">Content...</div>
                 </div>
             </div>
-            <div id="card-merc-2" class="job-card">
-                <h3 id="txt-mb-2-title">Master Thesis</h3>
-                <h4 id="txt-mb-2-date">12.2024 – 07.2025</h4>
-                <div class="job-details" id="txt-mb-2-desc">
-                    • Voltage Relaxation Modeling (Grade: 1.0)<br>
-                    • Python Optimization Algorithms<br>
-                    • Improved SOC estimation accuracy
-                </div>
-            </div>
-            <div id="card-merc-3" class="job-card">
-                <h3 id="txt-mb-3-title">Working Student (Current)</h3>
-                <h4 id="txt-mb-3-date">08.2025 – Ongoing</h4>
-                <div class="job-details" id="txt-mb-3-desc">
-                    • Machine Learning for predictive analysis<br>
-                    • Anomaly datasets & Data Catalog<br>
-                    • Fundamental research
-                </div>
-            </div>
+
         </div>
     </div>
 
     <div id="global-nav" class="nav-ui">
         <div class="nav-btn" onclick="goBack()">&#8592; <span id="txt-back">Back</span></div>
-        <div class="nav-btn btn-next" onclick="goNext()"><span id="txt-next">Next</span> &#8594;</div>
+        <div class="nav-btn" onclick="goNext()"><span id="txt-next">Next</span> &#8594;</div>
     </div>
 
     <script>
-        // --- CONTENT DATA ---
-        // Note: Map data is handled in the DOM structure above, text injected based on lang
+        // --- DATA ---
         const data = {
             en: [
                 {
                     type: "intro",
                     bg: "https://builtin.com/sites/www.builtin.com/files/2023-02/battery-hardware-new-battery-technologies.png",
-                    sideImg: "avatar.jpg", // REPLACE WITH YOUR PHOTO PATH
+                    sideImg: "avatar.jpg", // REPLACE
                     title: "Hello, I am Umesh Yadneshwar Joshi",
                     subtitle: "M.Eng. in Renewable Energies & E-Mobility",
                     text: "An innovative Electrical Engineer specializing in Battery Development, Algorithms, Applications, and System Validation. Passionate about advancing EV technology at Mercedes-Benz AG."
                 },
                 { type: "title", title: "PROFESSIONAL EXPERIENCE", bg: "https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/67d9aa0c3f74b6e38ebe75f4_mercedes-solid-state-battery.webp" },
                 
-                // *** SPECIAL MAP TYPE ***
+                // MAP SLIDE
                 { type: "map-experience" },
 
                 { type: "title", title: "EDUCATION", bg: "https://media.licdn.com/dms/image/v2/D4E12AQF9i6bHykCRMw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1727437705854?e=2147483647&v=beta&t=y0xbvu7k6WiDHSi9IEeWnadTx79j2gvamyg03Hcs-ro" },
@@ -391,7 +344,7 @@
                     bg: "https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/67d9aa0c3f74b6e38ebe75f4_mercedes-solid-state-battery.webp",
                     sideImg: "https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2021/06/EV20Battery_2-1024x633.jpg",
                     title: "University of Mumbai, India",
-                    role: "Bachelor of Engineering - Electrical Engineering (08.2018 – 06.2021, Grade: 1.3)",
+                    role: "Bachelor of Engineering - Electrical Engineering (08.2018 – 06.2021)",
                     details: "Focus areas: Power Supply Systems, Electrical Networks, Electrical Machines, Power Electronics, Drives and Control, Environmental Management."
                 },
                 { type: "title", title: "SKILLS", bg: "https://diotec.com/files/diotec/files/Post_Electricity%26Photovoltaic_SICW40C120.png" },
@@ -413,7 +366,7 @@
                 }
             ],
             de: [
-                {
+                 {
                     type: "intro",
                     bg: "https://builtin.com/sites/www.builtin.com/files/2023-02/battery-hardware-new-battery-technologies.png",
                     sideImg: "avatar.jpg",
@@ -422,10 +375,7 @@
                     text: "Ein innovativer Elektroingenieur, spezialisiert auf Batterieentwicklung, Algorithmen, Anwendungen und Systemvalidierung. Leidenschaftlich bei der Weiterentwicklung der EV-Technologie bei Mercedes-Benz AG."
                 },
                 { type: "title", title: "BERUFSERFAHRUNG", bg: "https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/67d9aa0c3f74b6e38ebe75f4_mercedes-solid-state-battery.webp" },
-                
-                // *** SPECIAL MAP TYPE ***
                 { type: "map-experience" },
-
                 { type: "title", title: "AUSBILDUNG", bg: "https://media.licdn.com/dms/image/v2/D4E12AQF9i6bHykCRMw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1727437705854?e=2147483647&v=beta&t=y0xbvu7k6WiDHSi9IEeWnadTx79j2gvamyg03Hcs-ro" },
                 {
                     type: "content",
@@ -440,7 +390,7 @@
                     bg: "https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/67d9aa0c3f74b6e38ebe75f4_mercedes-solid-state-battery.webp",
                     sideImg: "https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2021/06/EV20Battery_2-1024x633.jpg",
                     title: "University of Mumbai, Indien",
-                    role: "Bachelor of Engineering - Electrotechnik (08.2018 – 06.2021, Abschlussnote: 1.3)",
+                    role: "Bachelor of Engineering - Electrotechnik (08.2018 – 06.2021)",
                     details: "Schwerpunktfächer: Energieversorgungssysteme, Elektrische Netzwerke, Elektrische Maschinen, Leistungselektronik, Antriebe und Steuerung, Umweltmanagement."
                 },
                 { type: "title", title: "KENNTNISSE", bg: "https://diotec.com/files/diotec/files/Post_Electricity%26Photovoltaic_SICW40C120.png" },
@@ -463,13 +413,13 @@
             ]
         };
 
-        // --- STATE MANAGEMENT ---
+        // --- STATE & VARS ---
         let currentLang = 'en';
         let slideIndex = 0;
-        let appState = 'hello'; // 'hello', 'lang', 'content'
-        let mapStep = 0; // 0 to 6 for the map sequence
-
-        // DOM Elements
+        let appState = 'hello';
+        let mapSequence = 0; // 0=Zoom, 1=Elring, 2=Car, 3=Merc, 4=Finished
+        
+        // DOM ELEMENTS
         const screenHello = document.getElementById('screen-hello');
         const screenLang = document.getElementById('screen-lang');
         const screenContent = document.getElementById('screen-content');
@@ -477,11 +427,8 @@
         const globalNav = document.getElementById('global-nav');
         const bgDiv = document.getElementById('bg-image');
 
-        function initSystem() {
-            // Initial setup
-        }
+        function initSystem() {}
 
-        // --- NAVIGATION HANDLERS ---
         function goToLanguages() {
             appState = 'lang';
             switchScreen(screenHello, screenLang);
@@ -492,19 +439,30 @@
             document.getElementById('txt-next').innerText = lang === 'en' ? "Next" : "Weiter";
             document.getElementById('txt-back').innerText = lang === 'en' ? "Back" : "Zurück";
             
-            // Inject Map Text based on Lang
-            if(lang === 'de') {
-                document.getElementById('txt-ek-1-title').innerText = "Praktikant";
-                document.getElementById('txt-ek-1-desc').innerHTML = "• Batterie-Systemtests & Validierung<br>• Impedanzmessungen<br>• Testprotokolle & Dokumentation";
-                document.getElementById('txt-ek-2-title').innerText = "Werkstudent";
-                document.getElementById('txt-ek-2-desc').innerHTML = "• Testen von Batteriekomponenten<br>• Auswertung (X-Frame, DIAdem)<br>• Hardware-Design (ECUs)";
-                document.getElementById('txt-mb-1-title').innerText = "Werkstudent (HV Batterie)";
-                document.getElementById('txt-mb-1-desc').innerHTML = "• MATLAB-Automatisierung<br>• 3D-Simulation (CST Studio Suite)<br>• Impedanzmessungen";
-                document.getElementById('txt-mb-2-title').innerText = "Masterarbeit";
-                document.getElementById('txt-mb-2-desc').innerHTML = "• Spannungsrelaxationsmodellierung (Note: 1.0)<br>• Python-Optimierungsalgorithmen<br>• Verbesserung der SOC-Schätzgenauigkeit";
-                document.getElementById('txt-mb-3-title').innerText = "Werkstudent (Aktuell)";
-                document.getElementById('txt-mb-3-desc').innerHTML = "• Machine Learning für prädiktive Analyse<br>• Anomalie-Datensätze<br>• Grundlagenforschung";
-            }
+            // FILL MAP TEXT
+            const txt = {
+                en: {
+                    ek1t: "Internship", ek1d: "05.2023 – 11.2023", ek1desc: "• Battery System Tests & Validation<br>• Impedance measurements<br>• Test protocols",
+                    ek2t: "Working Student", ek2d: "11.2023 – 01.2024", ek2desc: "• Testing battery components<br>• Evaluating results (X-Frame)<br>• Hardware design",
+                    mb1t: "Working Student", mb1d: "02.2024 – 11.2024", mb1desc: "• MATLAB automation (95% saved)<br>• 3D Simulation (CST)<br>• Impedance measurements",
+                    mb2t: "Master Thesis", mb2d: "12.2024 – 07.2025", mb2desc: "• Voltage Relaxation Modeling (1.0)<br>• Python Optimization<br>• SOC estimation accuracy",
+                    mb3t: "Working Student", mb3d: "08.2025 – Ongoing", mb3desc: "• Machine Learning predictive analysis<br>• Anomaly datasets<br>• Fundamental research"
+                },
+                de: {
+                    ek1t: "Praktikant", ek1d: "05.2023 – 11.2023", ek1desc: "• Batterie-Systemtests & Validierung<br>• Impedanzmessungen<br>• Testprotokolle",
+                    ek2t: "Werkstudent", ek2d: "11.2023 – 01.2024", ek2desc: "• Testen von Batteriekomponenten<br>• Auswertung (X-Frame)<br>• Hardware-Design",
+                    mb1t: "Werkstudent", mb1d: "02.2024 – 11.2024", mb1desc: "• MATLAB-Automatisierung<br>• 3D-Simulation (CST)<br>• Impedanzmessungen",
+                    mb2t: "Masterarbeit", mb2d: "12.2024 – 07.2025", mb2desc: "• Spannungsrelaxationsmodellierung (1.0)<br>• Python-Optimierung<br>• SOC-Schätzung",
+                    mb3t: "Werkstudent", mb3d: "08.2025 – Laufend", mb3desc: "• Machine Learning Analyse<br>• Anomalie-Datensätze<br>• Grundlagenforschung"
+                }
+            };
+
+            const t = txt[lang];
+            document.getElementById('txt-ek-1-t').innerText = t.ek1t; document.getElementById('txt-ek-1-d').innerText = t.ek1d; document.getElementById('txt-ek-1-desc').innerHTML = t.ek1desc;
+            document.getElementById('txt-ek-2-t').innerText = t.ek2t; document.getElementById('txt-ek-2-d').innerText = t.ek2d; document.getElementById('txt-ek-2-desc').innerHTML = t.ek2desc;
+            document.getElementById('txt-mb-1-t').innerText = t.mb1t; document.getElementById('txt-mb-1-d').innerText = t.mb1d; document.getElementById('txt-mb-1-desc').innerHTML = t.mb1desc;
+            document.getElementById('txt-mb-2-t').innerText = t.mb2t; document.getElementById('txt-mb-2-d').innerText = t.mb2d; document.getElementById('txt-mb-2-desc').innerHTML = t.mb2desc;
+            document.getElementById('txt-mb-3-t').innerText = t.mb3t; document.getElementById('txt-mb-3-d').innerText = t.mb3d; document.getElementById('txt-mb-3-desc').innerHTML = t.mb3desc;
 
             appState = 'content';
             slideIndex = 0;
@@ -513,40 +471,29 @@
             setTimeout(() => { globalNav.style.display = 'flex'; }, 800);
         }
 
+        // --- NAVIGATION ---
         function goNext() {
             if (appState === 'hello') goToLanguages();
             else if (appState === 'lang') return;
             else if (appState === 'content') {
                 const currentSlide = data[currentLang][slideIndex];
                 
-                // CHECK IF WE ARE ON MAP SLIDE
+                // MAP LOGIC
                 if (currentSlide.type === 'map-experience') {
-                    if (mapStep < 5) {
-                        advanceMap();
-                        return; // Don't change slide yet
+                    if (mapSequence < 4) {
+                        advanceMapSequence();
+                        return;
                     } else {
-                        // Map finished, move to next slide
+                        // Finished map, go to next slide
                         slideIndex++;
-                        if (slideIndex < data[currentLang].length) {
-                            screenMap.classList.remove('active');
-                            setTimeout(() => {
-                                screenMap.style.display = 'none'; // fully hide
-                                renderSlide();
-                            }, 500);
-                        } else {
-                            slideIndex = 0; // Loop
-                            renderSlide();
-                        }
+                        if(slideIndex >= data[currentLang].length) slideIndex = 0;
+                        renderSlide();
                     }
                 } else {
-                    // Standard slide
-                    if (slideIndex < data[currentLang].length - 1) {
-                        slideIndex++;
-                        renderSlide();
-                    } else {
-                        slideIndex = 0;
-                        renderSlide();
-                    }
+                    // Standard Slide
+                    slideIndex++;
+                    if (slideIndex >= data[currentLang].length) slideIndex = 0;
+                    renderSlide();
                 }
             }
         }
@@ -559,8 +506,7 @@
                     slideIndex--;
                     renderSlide();
                 } else {
-                    appState = 'lang';
-                    globalNav.style.display = 'none';
+                    appState = 'lang'; globalNav.style.display = 'none';
                     switchScreen(screenContent, screenLang);
                 }
             }
@@ -573,27 +519,29 @@
 
         function renderSlide() {
             screenContent.classList.remove('active');
+            screenMap.classList.remove('active');
+            screenContent.style.display = 'none';
+            screenMap.style.display = 'none';
             
             setTimeout(() => {
                 const slide = data[currentLang][slideIndex];
                 
-                // HANDLE SPECIAL MAP SLIDE
+                // IS MAP?
                 if (slide.type === 'map-experience') {
-                    screenContent.style.display = 'none';
                     screenMap.style.display = 'block';
-                    setTimeout(() => screenMap.classList.add('active'), 100);
-                    resetMapAnimation();
+                    screenMap.classList.add('active');
+                    resetMap();
+                    // Auto Start Zoom
+                    setTimeout(() => { advanceMapSequence(); }, 500);
                     return;
-                } else {
-                    screenMap.classList.remove('active');
-                    screenMap.style.display = 'none';
-                    screenContent.style.display = 'flex';
                 }
-
-                // Standard Slide Logic
+                
+                // IS STANDARD
+                screenContent.style.display = 'flex';
+                
                 if (slide.bg) {
                     bgDiv.style.backgroundImage = `url('${slide.bg}')`;
-                    bgDiv.style.opacity = '0.8';
+                    bgDiv.style.opacity = '0.5';
                 }
 
                 let html = '<div class="content-container">';
@@ -607,7 +555,6 @@
                 } else if (slide.type === 'content') {
                     html += `<h2>${slide.title}</h2><h4>${slide.role}</h4>`;
                     if (slide.isSkills) html += `<div>${slide.skills.map(s => `<span class="skills-tag">${s}</span>`).join('')}</div>`;
-                    else if (slide.isTestimonials) html += slide.testimonials.map(t => `<div class="testimonial"><p>"${t.quote}"</p><p style="text-align:right">- ${t.author}</p></div>`).join('');
                     else html += `<p>${slide.details}</p>`;
                 } else if (slide.type === 'end') {
                     html += `<h1>${slide.title}</h1><h2>${slide.subtitle}</h2>`;
@@ -619,87 +566,83 @@
             }, 600);
         }
 
-        // --- MAP ANIMATION LOGIC ---
-        function resetMapAnimation() {
-            mapStep = 0;
-            document.getElementById('map-wrapper').style.display = 'block';
-            
+        // --- MAP SEQUENCER ---
+        function resetMap() {
+            mapSequence = 0;
             // Reset styles
-            document.getElementById('germany-svg').style.transform = "translate(-50%, -50%) scale(5)";
-            document.getElementById('germany-svg').style.opacity = "0";
-            document.getElementById('tech-grid').style.opacity = "0";
-            document.getElementById('tech-grid').style.transform = "perspective(1000px) rotateX(20deg) translateY(0) scale(0.5)";
+            document.getElementById('geo-map').style.transform = "scale(1)"; // World view
+            document.getElementById('road-svg-container').style.opacity = "0";
+            document.getElementById('moving-car').style.top = "73%"; 
+            document.getElementById('moving-car').style.left = "58%";
+            document.getElementById('moving-car').style.opacity = "0";
             
-            document.getElementById('node-elring').style.transform = "scale(0)";
-            document.getElementById('node-merc').style.transform = "scale(0)";
-            document.getElementById('road-line').style.width = "0";
-            document.getElementById('ev-car').style.left = "0";
-            document.getElementById('ev-car').style.opacity = "0";
+            document.getElementById('marker-neuffen').style.opacity = "0";
+            document.getElementById('marker-merc').style.opacity = "0";
             
-            // Hide all cards
-            document.querySelectorAll('.job-card').forEach(c => {
-                c.classList.remove('active', 'collapsed');
-            });
-
-            // Start Intro Animation (Zoom Germany)
-            setTimeout(() => { document.getElementById('germany-svg').style.opacity = "0.3"; }, 500);
-            setTimeout(() => { document.getElementById('germany-svg').style.transform = "translate(-50%, -50%) scale(1.5)"; }, 600);
+            document.getElementById('exp-group-neuffen').style.opacity = "0";
+            document.getElementById('exp-group-merc').style.opacity = "0";
             
-            // Fade out Germany, Fade in Tech Grid
-            setTimeout(() => { 
-                document.getElementById('germany-svg').style.opacity = "0";
-                document.getElementById('tech-grid').style.opacity = "1";
-                document.getElementById('tech-grid').style.transform = "perspective(1000px) rotateX(20deg) translateY(0) scale(1)";
-                // Show Elring Node
-                setTimeout(() => { document.getElementById('node-elring').style.transform = "scale(1)"; }, 1000);
-            }, 2000);
+            // Collapse all cards
+            document.querySelectorAll('.job-card').forEach(c => c.classList.remove('active'));
         }
 
-        function advanceMap() {
-            mapStep++;
-            // Step 1: Show Internship
-            if (mapStep === 1) {
-                document.getElementById('card-elring-1').classList.add('active');
-            }
-            // Step 2: Show Working Student (Elring) -> Collapse Internship
-            else if (mapStep === 2) {
-                document.getElementById('card-elring-1').classList.add('collapsed');
-                document.getElementById('card-elring-2').classList.add('active');
-            }
-            // Step 3: Drive Car -> Show Merc Node -> Show Merc Student 1
-            else if (mapStep === 3) {
-                document.getElementById('card-elring-2').classList.add('collapsed');
+        function advanceMapSequence() {
+            mapSequence++;
+            
+            if (mapSequence === 1) {
+                // ZOOM IN
+                document.getElementById('geo-map').style.transform = "scale(14)"; // Big zoom
                 
-                // Draw Road
-                const road = document.getElementById('road-line');
-                road.style.width = "55%"; // Connect distance
-                
-                // Animate Car
-                const car = document.getElementById('ev-car');
-                car.style.opacity = "1";
-                setTimeout(() => { car.style.left = "100%"; }, 100); // Drive
-
-                // Arrive
                 setTimeout(() => {
-                    document.getElementById('node-merc').style.transform = "scale(1)";
-                    document.getElementById('card-merc-1').classList.add('active');
-                }, 2100);
+                    document.getElementById('marker-neuffen').style.opacity = "1";
+                    document.getElementById('exp-group-neuffen').style.opacity = "1";
+                    // Auto open first internship
+                    document.querySelector('#exp-group-neuffen .job-card:first-child').classList.add('active');
+                }, 2000); // Wait for zoom
             }
-            // Step 4: Show Master Thesis -> Collapse Merc Student 1
-            else if (mapStep === 4) {
-                document.getElementById('card-merc-1').classList.add('collapsed');
-                document.getElementById('card-merc-2').classList.add('active');
-            }
-            // Step 5: Show Current Job -> Collapse Thesis
-            else if (mapStep === 5) {
-                document.getElementById('card-merc-2').classList.add('collapsed');
-                document.getElementById('card-merc-3').classList.add('active');
+            else if (mapSequence === 2) {
+                // START DRIVING
+                // Close Neuffen cards to clean up view
+                document.querySelectorAll('#exp-group-neuffen .job-card').forEach(c => c.classList.remove('active'));
                 
-                // Update Button Text to indicate exit
-                document.getElementById('txt-next').innerText = currentLang === 'en' ? "Education >" : "Ausbildung >";
+                document.getElementById('road-svg-container').style.opacity = "1";
+                const car = document.getElementById('moving-car');
+                car.style.opacity = "1";
+                
+                // Move Car (Neuffen -> Merc)
+                car.style.top = "35%";
+                car.style.left = "50%";
+                
+                setTimeout(() => {
+                    // ARRIVED
+                    document.getElementById('marker-merc').style.opacity = "1";
+                    document.getElementById('exp-group-merc').style.opacity = "1";
+                    // Auto open first Merc job
+                    document.querySelector('#exp-group-merc .job-card:first-child').classList.add('active');
+                    
+                    // Allow Interaction now
+                    mapSequence = 4; // Finished animation
+                }, 2500);
             }
         }
 
+        // --- ACCORDION LOGIC ---
+        function toggleCard(card) {
+            // Only allow toggling if we are in map view
+            if (!screenMap.classList.contains('active')) return;
+
+            // If card is already active, close it
+            if (card.classList.contains('active')) {
+                card.classList.remove('active');
+            } else {
+                // Close all others
+                document.querySelectorAll('.job-card').forEach(c => c.classList.remove('active'));
+                // Open this one
+                card.classList.add('active');
+            }
+        }
+
+        // Keyboard support
         document.addEventListener('keydown', (e) => {
             if (e.key === "ArrowRight") goNext();
             if (e.key === "ArrowLeft") goBack();
