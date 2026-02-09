@@ -8,18 +8,15 @@
         /* --- CSS VARIABLES & RESET --- */
         :root {
             --primary: #3498db;
-            --secondary: #2ecc71; /* Green */
-            --merc-silver: #e0e0e0;
-            --bg-dark: #0f172a;
-            --glass: rgba(15, 23, 42, 0.85);
+            --white: #ffffff;
             --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
 
         body {
-            background-color: var(--bg-dark);
-            color: white;
+            background-color: #0f172a;
+            color: var(--white);
             overflow: hidden;
             height: 100vh;
             width: 100vw;
@@ -28,207 +25,241 @@
 
         /* --- BACKGROUNDS --- */
         #bg-image {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center;
-            z-index: -3; opacity: 0.4;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -3;
+            transition: opacity 1s ease-in-out;
+            opacity: 0.8;
         }
-        
+
         .stars {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px);
-            background-size: 550px 550px; z-index: -2; opacity: 0.5; animation: twinkle 5s infinite;
+            background-size: 550px 550px;
+            z-index: -2;
+            opacity: 0.5;
+            animation: twinkle 5s infinite;
         }
-        @keyframes twinkle { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: -1;
+        }
 
         /* --- SCREENS --- */
         .screen {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
             transition: opacity 0.8s ease, transform 0.8s ease;
             transform: translateY(20px);
         }
-        .screen.active { opacity: 1; pointer-events: all; transform: translateY(0); }
 
-        /* --- SCREEN 1: HELLO --- */
-        .hello-cloud { position: relative; width: 90vw; height: 60vh; }
-        .cloud-word { position: absolute; color: rgba(255,255,255,0.8); font-weight: bold; animation: float 5s infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .w-main { font-size: 5rem; top: 50%; left: 50%; transform: translate(-50%, -50%); text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+        .screen.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        /* --- SCREEN 1: HELLO CLOUD --- */
+        .hello-cloud {
+            position: relative;
+            width: 90vw;
+            height: 60vh;
+            max-width: 800px;
+        }
+
+        .cloud-word {
+            position: absolute;
+            color: rgba(255,255,255,0.8);
+            font-weight: bold;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        .w-main {
+            font-size: 5rem; color: #fff; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 10;
+            text-shadow: 0 0 20px rgba(255,255,255,0.4);
+            animation: pulse-main 2s infinite;
+        }
+
+        @keyframes pulse-main {
+            0% { text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+            50% { text-shadow: 0 0 30px rgba(52, 152, 219, 0.6); }
+            100% { text-shadow: 0 0 20px rgba(255,255,255,0.4); }
+        }
+
         /* Scattered words */
-        .w-1 { top: 20%; left: 20%; font-size: 1.5rem; } .w-2 { top: 15%; right: 25%; font-size: 2rem; }
-        .w-3 { bottom: 25%; left: 15%; font-size: 2.5rem; } .w-4 { bottom: 20%; right: 20%; font-size: 1.8rem; }
-        
-        .welcome-line { margin-top: 2rem; font-size: 1.5rem; border-top: 1px solid white; padding-top: 1rem; }
-        .start-btn { margin-top: 30px; padding: 10px 30px; background: rgba(255,255,255,0.1); border: 1px solid white; color: white; cursor: pointer; z-index: 20; }
+        .w-1 { top: 20%; left: 20%; font-size: 1.5rem; transform: rotate(-10deg); animation-delay: 0.5s; }
+        .w-2 { top: 15%; right: 25%; font-size: 2rem; animation-delay: 1s; }
+        .w-3 { bottom: 25%; left: 15%; font-size: 2.5rem; font-family: serif; animation-delay: 1.5s; }
+        .w-4 { bottom: 20%; right: 20%; font-size: 1.8rem; transform: rotate(5deg); animation-delay: 2s; }
+        .w-5 { top: 40%; left: 10%; font-size: 1.4rem; transform: rotate(-90deg); animation-delay: 2.5s; }
+        .w-6 { top: 35%; right: 10%; font-size: 1.6rem; opacity: 0.7; animation-delay: 3s; }
+        .w-7 { bottom: 10%; left: 40%; font-size: 1.8rem; animation-delay: 3.5s; }
+        .w-8 { top: 10%; left: 45%; font-size: 1.5rem; animation-delay: 4s; }
+        .w-9 { top: 60%; right: 5%; font-size: 1.5rem; transform: rotate(90deg); animation-delay: 4.5s; }
+        .w-10 { top: 60%; left: 25%; font-size: 1.2rem; animation-delay: 5s; }
+
+        .welcome-line {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border-top: 1px solid white;
+            padding-top: 1rem;
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
         /* --- SCREEN 2: LANGUAGES --- */
-        .lang-btn { padding: 15px 50px; font-size: 1.5rem; margin: 20px; background: transparent; border: 2px solid white; color: white; cursor: pointer; transition: 0.3s; }
+        .lang-btn {
+            padding: 15px 50px;
+            font-size: 1.5rem;
+            margin: 20px;
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
         .lang-btn:hover { background: white; color: var(--primary); transform: scale(1.05); }
 
-        /* --- STANDARD CONTENT SLIDES --- */
-        .content-container { display: flex; align-items: center; justify-content: center; max-width: 1200px; padding: 20px; }
-        .side-image { width: 300px; height: auto; margin-right: 40px; border-radius: 10px; }
-        .text-content { max-width: 600px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--primary); object-fit: cover; margin-bottom: 20px; }
-        h1 { font-size: 2.5rem; margin-bottom: 1rem; } h2 { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
-        p { font-size: 1.1rem; line-height: 1.5; margin-bottom: 10px; }
-        .skills-tag { display: inline-block; padding: 5px 15px; margin: 3px; background: rgba(255,255,255,0.1); border-left: 3px solid var(--primary); }
-        .testimonial { background: rgba(255,255,255,0.1); padding: 15px; margin: 10px 0; border-radius: 10px; }
-
-        /* --- MAP & EXPERIENCE ANIMATION (Advanced) --- */
-        #map-viewport {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden; background-color: #0b1120;
+        /* --- CONTENT SLIDES --- */
+        .content-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            padding: 20px;
         }
 
-        /* The Map Image Layer */
-        #geo-map {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Abstract Tech Map Background */
-            background-image: radial-gradient(circle at 60% 40%, #1e293b 0%, #0f172a 60%),
-                              linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent),
-                              linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
-            background-size: 100% 100%, 50px 50px, 50px 50px;
-            transform-origin: 60% 40%; /* Zoom into "Germany" area */
-            transform: scale(1);
-            transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 1;
+        .side-image {
+            width: 300px;
+            height: auto;
+            margin-right: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.4);
+            animation: slideInLeft 1s ease-out;
         }
 
-        /* Locations Markers */
-        .city-marker {
-            position: absolute; z-index: 10;
-            display: flex; flex-direction: column; align-items: center;
-            opacity: 0; transition: opacity 1s;
-        }
-        .pin {
-            width: 20px; height: 20px; border-radius: 50%;
-            border: 3px solid white; box-shadow: 0 0 15px white;
-            position: relative;
-        }
-        .pin::after {
-            content: ''; position: absolute; top: 50%; left: 50%;
-            width: 60px; height: 60px; border-radius: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid white; animation: ripple 2s infinite;
-        }
-        @keyframes ripple { 0% { width:0; height:0; opacity:1; } 100% { width:80px; height:80px; opacity:0; } }
-        
-        .city-label {
-            margin-top: 10px; background: rgba(0,0,0,0.7);
-            padding: 5px 10px; border-radius: 5px; font-size: 0.9rem; font-weight: bold;
-            text-transform: uppercase; letter-spacing: 1px;
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Specific Positions (Relative to screen center after zoom) */
-        /* Neuffen is South-East of Stuttgart, Untertürkheim is Central/East */
-        #marker-neuffen { top: 75%; left: 60%; } /* Neuffen */
-        #marker-neuffen .pin { background: var(--secondary); border-color: var(--secondary); box-shadow: 0 0 15px var(--secondary); }
-        
-        #marker-merc { top: 35%; left: 50%; } /* Untertürkheim */
-        #marker-merc .pin { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
-
-        /* The Road (SVG) */
-        #road-svg-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 5; pointer-events: none;
-            opacity: 0; transition: opacity 1s;
-        }
-        .road-path {
-            fill: none; stroke: rgba(255,255,255,0.3); stroke-width: 4; stroke-dasharray: 10, 5;
-        }
-        
-        /* The Car */
-        #moving-car {
-            position: absolute; font-size: 2rem; z-index: 20;
-            top: 73%; left: 58%; /* Start at Neuffen */
-            transition: top 2.5s linear, left 2.5s linear, transform 0.5s;
-            opacity: 0;
-            filter: drop-shadow(0 0 10px white);
+        .text-content {
+            max-width: 600px;
+            animation: slideInRight 1s ease-out;
         }
 
-        /* Experience Containers */
-        .exp-container {
-            position: absolute;
-            z-index: 30;
-            display: flex; flex-direction: column; gap: 10px;
-            opacity: 0; transition: opacity 0.5s;
-        }
-        
-        /* Connector Lines */
-        .exp-container::before {
-            content: ''; position: absolute;
-            background: white; z-index: -1;
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Position Experiences */
-        /* Neuffen Experience (Left of marker) */
-        #exp-group-neuffen { bottom: 20%; right: 45%; align-items: flex-end; }
-        #exp-group-neuffen::before {
-            top: 80%; right: -50px; width: 60px; height: 2px;
-            transform: rotate(30deg); background: var(--secondary);
+        .profile-photo {
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(52, 152, 219, 0.4);
+            animation: rotateIn 1.5s ease-out;
         }
 
-        /* Mercedes Experience (Right of marker) */
-        #exp-group-merc { top: 15%; left: 60%; align-items: flex-start; }
-        #exp-group-merc::before {
-            top: 50%; left: -60px; width: 70px; height: 2px;
-            transform: rotate(-20deg); background: var(--primary);
+        @keyframes rotateIn {
+            from { transform: rotate(-10deg); opacity: 0; }
+            to { transform: rotate(0); opacity: 1; }
         }
 
-        /* Job Cards (Accordion Style) */
-        .job-card {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-left: 4px solid #888;
-            padding: 10px 15px;
-            border-radius: 5px;
-            width: 320px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            height: 50px; /* Collapsed height */
-            position: relative;
-        }
-        
-        .job-card:hover { transform: translateX(5px); background: rgba(30, 41, 59, 0.95); }
+        h1 { font-size: 3rem; margin-bottom: 1rem; animation: fadeIn 1s; }
+        h2 { font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem; }
+        h4 { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 1.5rem; font-style: italic; }
+        p { font-size: 1.2rem; line-height: 1.6; text-align: left; }
 
-        .job-card.active {
-            height: auto; /* Expand */
-            border-color: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        .skills-tag {
+            display: inline-block; padding: 8px 20px; margin: 5px;
+            background: rgba(255,255,255,0.1); border-left: 3px solid var(--primary);
+            transition: transform 0.3s;
         }
 
-        .job-card h3 { font-size: 1rem; margin: 0; color: #fff; pointer-events: none; }
-        .job-card h4 { font-size: 0.8rem; color: #cbd5e1; margin-top: 5px; pointer-events: none; }
-        .job-card .desc {
-            margin-top: 15px; font-size: 0.85rem; line-height: 1.4; color: #ddd;
-            display: none; pointer-events: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;
+        .skills-tag:hover { transform: scale(1.1); }
+
+        .testimonial {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: left;
+            animation: fadeIn 1.5s;
         }
-        .job-card.active .desc { display: block; animation: fadeIn 0.5s; }
-        
-        /* Specific Colors */
-        .elring-card { border-left-color: var(--secondary); }
-        .merc-card { border-left-color: var(--primary); }
 
         /* --- NAVIGATION UI --- */
-        .nav-ui { position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: space-between; padding: 0 40px; z-index: 100; display: none; }
-        .nav-btn { font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; opacity: 0.7; transition: 0.3s; text-transform: uppercase; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 20px; }
+        .nav-ui {
+            position: absolute; bottom: 30px; width: 100%;
+            display: flex; justify-content: space-between; padding: 0 40px;
+            z-index: 100;
+            display: none; /* Hidden initially */
+        }
+
+        .nav-btn {
+            font-size: 1.2rem; font-weight: bold; cursor: pointer;
+            color: white; opacity: 0.7; transition: 0.3s;
+            text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+        }
+
         .nav-btn:hover { opacity: 1; color: var(--primary); transform: scale(1.05); }
-        
+        .btn-next { animation: pulse 2s infinite; }
+
         /* Click Zones */
         .click-zone { position: absolute; top:0; height: 100%; z-index: 50; }
-        .zone-right { right: 0; width: 20%; cursor: e-resize; }
-        .zone-left { left: 0; width: 10%; cursor: w-resize; }
-
+        .zone-right { right: 0; width: 40%; cursor: e-resize; }
+        .zone-left { left: 0; width: 15%; cursor: w-resize; }
+        
+        .start-btn {
+            margin-top: 30px;
+            padding: 10px 30px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid white;
+            color: white;
+            cursor: pointer;
+            z-index: 20;
+        }
     </style>
 </head>
 <body onload="initSystem()">
 
     <div id="stars-layer" class="stars"></div>
     <div id="bg-image"></div>
-    
+    <div class="overlay"></div>
+
     <div class="click-zone zone-left" onclick="goBack()"></div>
     <div class="click-zone zone-right" onclick="goNext()"></div>
 
@@ -238,8 +269,15 @@
             <span class="cloud-word w-1">Namaskar</span>
             <span class="cloud-word w-2">Bonjour</span>
             <span class="cloud-word w-3">Hallo</span>
+            <span class="cloud-word w-4">Hola</span>
+            <span class="cloud-word w-5">Ciao</span>
+            <span class="cloud-word w-6">Salaam</span>
+            <span class="cloud-word w-7">Guten Tag</span>
+            <span class="cloud-word w-8">Konnichiwa</span>
+            <span class="cloud-word w-9">Jambo</span>
+            <span class="cloud-word w-10">Zdravstvuyte</span>
         </div>
-        <div class="welcome-line">My Battery Engineering Portfolio</div>
+        <div class="welcome-line">Welcome to My Battery Engineering Portfolio</div>
         <button class="start-btn" onclick="goToLanguages()">Start &#8594;</button>
     </div>
 
@@ -254,82 +292,64 @@
     <div id="screen-content" class="screen">
         </div>
 
-    <div id="screen-map" class="screen">
-        <div id="map-viewport">
-            <div id="geo-map"></div>
-
-            <svg id="road-svg-container" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path class="road-path" d="M 60 75 Q 50 60 50 35" />
-            </svg>
-
-            <div id="moving-car">🚗</div>
-
-            <div id="marker-neuffen" class="city-marker">
-                <div class="pin"></div>
-                <div class="city-label">Neuffen<br><span style="font-size:0.7rem; color:var(--secondary)">ElringKlinger</span></div>
-            </div>
-
-            <div id="marker-merc" class="city-marker">
-                <div class="pin"></div>
-                <div class="city-label">Untertürkheim<br><span style="font-size:0.7rem; color:var(--primary)">Mercedes-Benz</span></div>
-            </div>
-
-            <div id="exp-group-neuffen" class="exp-container">
-                <div class="job-card elring-card" onclick="toggleCard(this)">
-                    <h3 id="txt-ek-1-t">Internship</h3>
-                    <h4 id="txt-ek-1-d">05.2023 – 11.2023</h4>
-                    <div class="desc" id="txt-ek-1-desc">Content...</div>
-                </div>
-                <div class="job-card elring-card" onclick="toggleCard(this)">
-                    <h3 id="txt-ek-2-t">Working Student</h3>
-                    <h4 id="txt-ek-2-d">11.2023 – 01.2024</h4>
-                    <div class="desc" id="txt-ek-2-desc">Content...</div>
-                </div>
-            </div>
-
-            <div id="exp-group-merc" class="exp-container">
-                <div class="job-card merc-card" onclick="toggleCard(this)">
-                    <h3 id="txt-mb-1-t">Working Student</h3>
-                    <h4 id="txt-mb-1-d">02.2024 – 11.2024</h4>
-                    <div class="desc" id="txt-mb-1-desc">Content...</div>
-                </div>
-                <div class="job-card merc-card" onclick="toggleCard(this)">
-                    <h3 id="txt-mb-2-t">Master Thesis</h3>
-                    <h4 id="txt-mb-2-d">12.2024 – 07.2025</h4>
-                    <div class="desc" id="txt-mb-2-desc">Content...</div>
-                </div>
-                <div class="job-card merc-card" onclick="toggleCard(this)">
-                    <h3 id="txt-mb-3-t">Working Student (Current)</h3>
-                    <h4 id="txt-mb-3-d">08.2025 – Ongoing</h4>
-                    <div class="desc" id="txt-mb-3-desc">Content...</div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
     <div id="global-nav" class="nav-ui">
         <div class="nav-btn" onclick="goBack()">&#8592; <span id="txt-back">Back</span></div>
-        <div class="nav-btn" onclick="goNext()"><span id="txt-next">Next</span> &#8594;</div>
+        <div class="nav-btn btn-next" onclick="goNext()"><span id="txt-next">Next</span> &#8594;</div>
     </div>
 
     <script>
-        // --- DATA ---
+        // --- CONTENT DATA ---
         const data = {
             en: [
                 {
                     type: "intro",
                     bg: "https://builtin.com/sites/www.builtin.com/files/2023-02/battery-hardware-new-battery-technologies.png",
-                    sideImg: "avatar.jpg", // REPLACE
+                    sideImg: "avatar.jpg", 
                     title: "Hello, I am Umesh Yadneshwar Joshi",
                     subtitle: "M.Eng. in Renewable Energies & E-Mobility",
-                    text: "An innovative Electrical Engineer specializing in Battery Development, Algorithms, Applications, and System Validation. Passionate about advancing EV technology at Mercedes-Benz AG."
+                    text: "An innovative Electrical Engineer specializing in Battery Development, Algorithms, Applications, and System Validation. Passionate about advancing EV technology at Mercedes-Benz AG. Born on 08.04.2000 in India, currently based in Esslingen, Stuttgart."
                 },
                 { type: "title", title: "PROFESSIONAL EXPERIENCE", bg: "https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/67d9aa0c3f74b6e38ebe75f4_mercedes-solid-state-battery.webp" },
-                
-                // MAP SLIDE
-                { type: "map-experience" },
-
+                {
+                    type: "content",
+                    bg: "https://i.ytimg.com/vi/lCXWlFLVpK8/maxresdefault.jpg",
+                    sideImg: "https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2021/06/EV20Battery_2-1024x633.jpg",
+                    title: "Mercedes-Benz AG, Stuttgart, Germany",
+                    role: "Working Student – Battery Development, Algorithms & Applications (08.2025 – Ongoing)",
+                    details: "• Conducting fundamental research to extend the voltage relaxation model within a supervised Machine Learning framework for predictive analysis.<br>• Creating an anomaly dataset and structured data catalog based on experimental battery measurement data for future model training and validation."
+                },
+                {
+                    type: "content",
+                    bg: "https://prod.tvmimageservice.com/images/GetLibraryImage?fileNameOrId=682994",
+                    sideImg: "https://www.evspecifications.com/images/news/b27d2d7/additional_1.jpg",
+                    title: "Mercedes-Benz AG, Stuttgart, Germany",
+                    role: "Master Thesis: Modeling and Prediction of Voltage Relaxation Behavior in Lithium-Ion Batteries (12.2024 – 07.2025, Grade: 1.0)",
+                    details: "• In-depth research on various relaxation models for electrochemical systems.<br>• Developed an advanced relaxation model for Lithium-Ion Batteries using modern Python frameworks.<br>• Implemented an adaptive optimization algorithm based on experimental data, improving model accuracy by 80–85%.<br>• Applied and evaluated the gradient-based CyIPOPT method for enhanced model validation and performance.<br>• Significantly improved SOC estimation accuracy for more reliable and predictive battery performance assessment."
+                },
+                {
+                    type: "content",
+                    bg: "https://i.ytimg.com/vi/HqLSffcruVI/maxresdefault.jpg",
+                    sideImg: "https://cdn.comsol.com/product-new/battery-design-module/full/battery-pack-design-module-hero.png",
+                    title: "Mercedes-Benz AG, Stuttgart, Germany",
+                    role: "Working Student in High-Voltage Battery Development, System Pre-Development (02.2024 – 11.2024)",
+                    details: "• Developed and implemented MATLAB scripts for automated analysis and visualization of measurement data, reducing manual workload by 95–98%.<br>• Built and parameterized 3D simulation models in CST Studio Suite.<br>• Conducted impedance measurements and created operating manuals for AC/DC magnetometers."
+                },
+                {
+                    type: "content",
+                    bg: "https://oorja.energy/wp-content/uploads/2024/06/Simulating-Success-with-oorja.jpg.webp",
+                    sideImg: "https://dkk4qeqny48s0.cloudfront.net/wp-content/uploads/2023/06/EV-revolution.jpg",
+                    title: "ElringKlinger AG, Neuffen, Stuttgart, Germany",
+                    role: "Working Student in Battery Development, Battery System Tests and Validation (11.2023 – 01.2024)",
+                    details: "• Tested battery components and cells, including creating and executing test cases.<br>• Evaluated measurement results using X-Frame and DIAdem.<br>• Contributed to hardware design of ECUs and microcontrollers."
+                },
+                {
+                    type: "content",
+                    bg: "https://www.estarbikes.com/wp-content/uploads/2025/01/Solar-Powered-e-Bikes01-1.jpg",
+                    sideImg: "https://diotec.com/files/diotec/files/Post_Electricity%26Photovoltaic_SICW40C120.png",
+                    title: "ElringKlinger AG, Neuffen, Stuttgart, Germany",
+                    role: "Intern: Battery System Tests and Validation (05.2023 – 11.2023)",
+                    details: "• Performed tests and validation of battery systems, ECUs, and drives to ensure performance and safety standards.<br>• Conducted impedance measurements on aluminum foils and around the battery.<br>• Created test protocols and documented test results."
+                },
                 { type: "title", title: "EDUCATION", bg: "https://media.licdn.com/dms/image/v2/D4E12AQF9i6bHykCRMw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1727437705854?e=2147483647&v=beta&t=y0xbvu7k6WiDHSi9IEeWnadTx79j2gvamyg03Hcs-ro" },
                 {
                     type: "content",
@@ -344,8 +364,33 @@
                     bg: "https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/67d9aa0c3f74b6e38ebe75f4_mercedes-solid-state-battery.webp",
                     sideImg: "https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2021/06/EV20Battery_2-1024x633.jpg",
                     title: "University of Mumbai, India",
-                    role: "Bachelor of Engineering - Electrical Engineering (08.2018 – 06.2021)",
+                    role: "Bachelor of Engineering - Electrical Engineering (08.2018 – 06.2021, Grade: 1.3)",
                     details: "Focus areas: Power Supply Systems, Electrical Networks, Electrical Machines, Power Electronics, Drives and Control, Environmental Management."
+                },
+                {
+                    type: "content",
+                    bg: "https://prod.tvmimageservice.com/images/GetLibraryImage?fileNameOrId=682994",
+                    sideImg: "https://www.evspecifications.com/images/news/b27d2d7/additional_1.jpg",
+                    title: "Maharashtra State Board of Technical Education (MSBTE), India",
+                    role: "Diploma in Electrical Engineering (06.2015 – 05.2018, Grade: 1.9)",
+                    details: "Focus areas: Basics of Electrical Engineering, Electrical Circuits and Networks, AC Machines, Power Electronics, Microcontrollers and Applications."
+                },
+                { type: "title", title: "PROJECTS", bg: "https://i.ytimg.com/vi/HqLSffcruVI/maxresdefault.jpg" },
+                {
+                    type: "content",
+                    bg: "https://cdn.comsol.com/product-new/battery-design-module/full/battery-pack-design-module-hero.png",
+                    sideImg: "https://oorja.energy/wp-content/uploads/2024/06/Simulating-Success-with-oorja.jpg.webp",
+                    title: "Bachelor Thesis | Mumbai University, India",
+                    role: "Electromagnetic Space Shuttle Launch System (12.2020 – 05.2021)",
+                    details: "• Developed a linear electromagnetic accelerator to achieve high accelerations with minimal erosion wear in the rail/armature area.<br>• Published in IJERT."
+                },
+                {
+                    type: "content",
+                    bg: "https://dkk4qeqny48s0.cloudfront.net/wp-content/uploads/2023/06/EV-revolution.jpg",
+                    sideImg: "https://www.estarbikes.com/wp-content/uploads/2025/01/Solar-Powered-e-Bikes01-1.jpg",
+                    title: "Diploma Thesis | MSBTE Mumbai, India",
+                    role: "Speed Control of a DC Motor Using ARDUINO PWM Technique (08.2017 – 04.2018)",
+                    details: "• Designed a reliable system for constant speed control of a DC motor under variable load conditions.<br>• Applied PWM technique with IGBT for power control and data storage."
                 },
                 { type: "title", title: "SKILLS", bg: "https://diotec.com/files/diotec/files/Post_Electricity%26Photovoltaic_SICW40C120.png" },
                 {
@@ -355,7 +400,46 @@
                     title: "Technical Skills",
                     role: "Software & Tools",
                     isSkills: true,
-                    skills: ["MATLAB/Simulink", "Python (Pandas, NumPy)", "VS-Code", "GitHub", "Confluence", "Machine Learning (AI/ML)", "PREEvision", "CAN/CANoe", "C/C++", "LT Spice", "AUTOSAR", "Impedance Analysis"]
+                    skills: ["MATLAB/Simulink", "Python (Pandas, NumPy)", "VS-Code", "GitHub", "Confluence", "MS Office", "GitHub Copilot", "Machine Learning (AI/ML)", "PREEvision", "CAN", "CANoe", "CANalyzer", "C", "LT Spice", "AUTOSAR", "Impedance and Vector Analyze", "C++", "Object-Oriented Programming"]
+                },
+                {
+                    type: "content",
+                    bg: "https://i.ytimg.com/vi/lCXWlFLVpK8/maxresdefault.jpg",
+                    sideImg: "https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2021/06/EV20Battery_2-1024x633.jpg",
+                    title: "Languages",
+                    role: "",
+                    details: "• German: B2.1 (actively improving)<br>• English: Fluent (C1)<br>• Marathi: Native<br>• Hindi: Proficient"
+                },
+                { type: "title", title: "ACHIEVEMENTS & ACTIVITIES", bg: "https://prod.tvmimageservice.com/images/GetLibraryImage?fileNameOrId=682994" },
+                {
+                    type: "content",
+                    bg: "https://www.evspecifications.com/images/news/b27d2d7/additional_1.jpg",
+                    sideImg: "https://i.ytimg.com/vi/HqLSffcruVI/maxresdefault.jpg",
+                    title: "Achievements",
+                    role: "",
+                    details: "• Second Place in Bachelor of Electrical Engineering – Awarded medal for outstanding performance."
+                },
+                {
+                    type: "content",
+                    bg: "https://cdn.comsol.com/product-new/battery-design-module/full/battery-pack-design-module-hero.png",
+                    sideImg: "https://oorja.energy/wp-content/uploads/2024/06/Simulating-Success-with-oorja.jpg.webp",
+                    title: "Activities",
+                    role: "System Engineering Workshop, Mercedes-Benz AG, Stuttgart (01.2025)",
+                    details: "• Successfully participated in an intensive four-day System Engineering course.<br>• Developed methods for requirements analysis, system architecture, integration, and validation.<br>• Created use-case analysis and system function specifications for HV components."
+                },
+                { type: "title", title: "RECOMMENDATIONS", bg: "https://dkk4qeqny48s0.cloudfront.net/wp-content/uploads/2023/06/EV-revolution.jpg" },
+                {
+                    type: "content",
+                    bg: "https://www.estarbikes.com/wp-content/uploads/2025/01/Solar-Powered-e-Bikes01-1.jpg",
+                    sideImg: "https://diotec.com/files/diotec/files/Post_Electricity%26Photovoltaic_SICW40C120.png",
+                    title: "Colleague Recommendations",
+                    role: "",
+                    isTestimonials: true,
+                    testimonials: [
+                        { quote: "Umesh demonstrated exceptional skills in battery modeling and optimization during his master thesis. His innovative approach significantly improved our SOC estimation accuracy.", author: "Supervisor at Mercedes-Benz AG" },
+                        { quote: "A dedicated and quick learner, Umesh's automation scripts saved our team countless hours. Highly recommended for any battery development role.", author: "Colleague at Mercedes-Benz AG" },
+                        { quote: "Umesh's attention to detail in testing and validation was impressive. He contributed greatly to our hardware designs.", author: "Team Lead at ElringKlinger AG" }
+                    ]
                 },
                 {
                     type: "end",
@@ -366,16 +450,55 @@
                 }
             ],
             de: [
-                 {
+                {
                     type: "intro",
                     bg: "https://builtin.com/sites/www.builtin.com/files/2023-02/battery-hardware-new-battery-technologies.png",
                     sideImg: "avatar.jpg",
                     title: "Hallo, ich bin Umesh Yadneshwar Joshi",
                     subtitle: "M.Eng. Erneuerbare Energien & E-Mobilität",
-                    text: "Ein innovativer Elektroingenieur, spezialisiert auf Batterieentwicklung, Algorithmen, Anwendungen und Systemvalidierung. Leidenschaftlich bei der Weiterentwicklung der EV-Technologie bei Mercedes-Benz AG."
+                    text: "Ein innovativer Elektroingenieur, spezialisiert auf Batterieentwicklung, Algorithmen, Anwendungen und Systemvalidierung. Leidenschaftlich bei der Weiterentwicklung der EV-Technologie bei Mercedes-Benz AG. Geboren am 08.04.2000 in Indien, derzeit in Esslingen, Stuttgart."
                 },
                 { type: "title", title: "BERUFSERFAHRUNG", bg: "https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/67d9aa0c3f74b6e38ebe75f4_mercedes-solid-state-battery.webp" },
-                { type: "map-experience" },
+                {
+                    type: "content",
+                    bg: "https://i.ytimg.com/vi/lCXWlFLVpK8/maxresdefault.jpg",
+                    sideImg: "https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2021/06/EV20Battery_2-1024x633.jpg",
+                    title: "Mercedes-Benz AG, Stuttgart, Deutschland",
+                    role: "Werkstudent – Batterieentwicklung, Algorithmen & Applikationen (08.2025 – Laufend)",
+                    details: "• Durchführung von Grundlagenforschung zur Erweiterung des Spannungsrelaxationsmodells im Hinblick auf ein überwachtes Machine-Learning-Framework (KL/ML) zur prädiktiven Analyse.<br>• Erstellung eines Anomalie-Datensatzes und eines strukturierten Datenkatalogs auf Basis experimenteller Batteriemessdaten für zukünftiges Modelltraining und -Validierung."
+                },
+                {
+                    type: "content",
+                    bg: "https://prod.tvmimageservice.com/images/GetLibraryImage?fileNameOrId=682994",
+                    sideImg: "https://www.evspecifications.com/images/news/b27d2d7/additional_1.jpg",
+                    title: "Mercedes-Benz AG, Stuttgart, Deutschland",
+                    role: "Masterarbeit: Modellierung und Vorhersage des Spannungsrelaxationverhaltens in Lithium-Ionen-Batterien (12.2024 – 07.2025, Note: 1.0)",
+                    details: "• Durchführung vertiefter Forschung zu verschiedenen Relaxationsmodellen elektrochemischer Systeme.<br>• Entwicklung eines fortgeschrittenen Relaxationsmodells für Lithium-Ionen-Batterien (LIBs) unter Verwendung moderner Python-Frameworks.<br>• Implementierung eines adaptiven Optimierungsalgorithmus auf Basis experimenteller Daten, wodurch die Modellgenauigkeit um etwa 80–85 % verbessert wurde.<br>• Anwendung und Bewertung der Gradienten basierten CyIPOPT-Methode zur Verbesserung der Modellvalidierung und Gesamtleistung.<br>• Deutliche Verbesserung der SOC Schätzgenauigkeit, was zu einer zuverlässigeren und vorausschauenden Batterieleistungsbewertung führte."
+                },
+                {
+                    type: "content",
+                    bg: "https://i.ytimg.com/vi/HqLSffcruVI/maxresdefault.jpg",
+                    sideImg: "https://cdn.comsol.com/product-new/battery-design-module/full/battery-pack-design-module-hero.png",
+                    title: "Mercedes-Benz AG, Stuttgart, Deutschland",
+                    role: "Werkstudent in der Hochvolt Batterieentwicklung im Bereich System Vorentwicklung (02.2024 – 11.2024)",
+                    details: "• Entwicklung und Implementierung von MATLAB-Skripten zur automatisierten Analyse und Visualisierung von Messdaten, wodurch der manuelle Arbeitsaufwand um etwa 95–98 % reduziert wurde.<br>• Aufbau und Parametrierung von 3D-Simulationsmodellen in CST-Studio Suite.<br>• Durchführung von Impedanzmessungen sowie Erstellung von Bedienungsanleitungen für AC-/DC-Magnetometer."
+                },
+                {
+                    type: "content",
+                    bg: "https://oorja.energy/wp-content/uploads/2024/06/Simulating-Success-with-oorja.jpg.webp",
+                    sideImg: "https://dkk4qeqny48s0.cloudfront.net/wp-content/uploads/2023/06/EV-revolution.jpg",
+                    title: "ElringKlinger AG, Neuffen, Stuttgart, Deutschland",
+                    role: "Werkstudent in der Batterieentwicklung im Bereich Batterie Systemtests und Validierung (11.2023 – 01.2024)",
+                    details: "• Testen von Batteriekomponenten und -zellen inklusive Erstellung und Durchführung von Testfällen.<br>• Auswertung von Messergebnissen mit X-Frame und DIAdem.<br>• Mitarbeit an der Hardware-Design von ECUs und Mikrocontrollern."
+                },
+                {
+                    type: "content",
+                    bg: "https://www.estarbikes.com/wp-content/uploads/2025/01/Solar-Powered-e-Bikes01-1.jpg",
+                    sideImg: "https://diotec.com/files/diotec/files/Post_Electricity%26Photovoltaic_SICW40C120.png",
+                    title: "ElringKlinger AG, Neuffen, Stuttgart, Deutschland",
+                    role: "Praktikant: Batterie-Systemtests und Validierung (05.2023 – 11.2023)",
+                    details: "• Tests und Validierung von Batteriesystemen, ECUs und Antrieben zur Sicherstellung von Leistung- und Sicherheitsstandards.<br>• Impedanzmessungen an Aluminiumfolien und um die Batterie.<br>• Erstellung von Testprotokollen und Dokumentation der Testergebnisse."
+                },
                 { type: "title", title: "AUSBILDUNG", bg: "https://media.licdn.com/dms/image/v2/D4E12AQF9i6bHykCRMw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1727437705854?e=2147483647&v=beta&t=y0xbvu7k6WiDHSi9IEeWnadTx79j2gvamyg03Hcs-ro" },
                 {
                     type: "content",
@@ -390,8 +513,33 @@
                     bg: "https://cdn.prod.website-files.com/5ec85520c4dfff034b036be2/67d9aa0c3f74b6e38ebe75f4_mercedes-solid-state-battery.webp",
                     sideImg: "https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2021/06/EV20Battery_2-1024x633.jpg",
                     title: "University of Mumbai, Indien",
-                    role: "Bachelor of Engineering - Electrotechnik (08.2018 – 06.2021)",
+                    role: "Bachelor of Engineering - Electrotechnik (08.2018 – 06.2021, Abschlussnote: 1.3)",
                     details: "Schwerpunktfächer: Energieversorgungssysteme, Elektrische Netzwerke, Elektrische Maschinen, Leistungselektronik, Antriebe und Steuerung, Umweltmanagement."
+                },
+                {
+                    type: "content",
+                    bg: "https://prod.tvmimageservice.com/images/GetLibraryImage?fileNameOrId=682994",
+                    sideImg: "https://www.evspecifications.com/images/news/b27d2d7/additional_1.jpg",
+                    title: "Maharashtra State Board of Technical Education (MSBTE), Indien",
+                    role: "Diplom in Electrotechnik (06.2015 – 05.2018, Abschlussnote: 1.9)",
+                    details: "Schwerpunktfächer: Grundlagen der Elektrotechnik, Elektrische Schaltungen und Netzwerke, Wechselstrommaschinen, Leistungselektronik, Mikrocontroller und Anwendungen."
+                },
+                { type: "title", title: "PROJEKTE", bg: "https://i.ytimg.com/vi/HqLSffcruVI/maxresdefault.jpg" },
+                {
+                    type: "content",
+                    bg: "https://cdn.comsol.com/product-new/battery-design-module/full/battery-pack-design-module-hero.png",
+                    sideImg: "https://oorja.energy/wp-content/uploads/2024/06/Simulating-Success-with-oorja.jpg.webp",
+                    title: "Bachelorarbeit | Mumbai University, Indien",
+                    role: "Elektromagnetisches Space Shuttle Startsystem (12.2020 – 05.2021)",
+                    details: "• Entwicklung eines linearen elektromagnetischen Beschleunigers zur Erreichung hoher Beschleunigungen bei minimalem Erosionsverschleiß im Rail/Armaturenbereich. [IJERT]"
+                },
+                {
+                    type: "content",
+                    bg: "https://dkk4qeqny48s0.cloudfront.net/wp-content/uploads/2023/06/EV-revolution.jpg",
+                    sideImg: "https://www.estarbikes.com/wp-content/uploads/2025/01/Solar-Powered-e-Bikes01-1.jpg",
+                    title: "Diplomarbeit | MSBTE Mumbai, Indien",
+                    role: "Drehzahlregelung eines Gleichstrommotors mithilfe der ARDUINO-PWM-Technik (08.2017 – 04.2018)",
+                    details: "• Entwurf eines zuverlässigen Systems zur konstanten Drehzahlregelung eines DC-Motors unter variablen Lastbedingungen.<br>• Anwendung der PWM-Technik mit IGBT zur Steuerung der Leistung und Datenspeicherung."
                 },
                 { type: "title", title: "KENNTNISSE", bg: "https://diotec.com/files/diotec/files/Post_Electricity%26Photovoltaic_SICW40C120.png" },
                 {
@@ -401,7 +549,46 @@
                     title: "Softwarekenntnisse",
                     role: "",
                     isSkills: true,
-                    skills: ["MATLAB/Simulink", "Python (Pandas, NumPy)", "VS-Code", "GitHub", "Confluence", "Machine Learning (AI/ML)", "PREEvision", "CAN/CANoe", "C/C++", "LT Spice", "AUTOSAR", "Impedanz- und Vectoranalyze"]
+                    skills: ["MATLAB/Simulink", "Python (Pandas, NumPy)", "VS-Code", "GitHub", "Confluence", "MS Office", "GitHub Copilot", "Machine Learning (AI/ML)", "PREEvision", "CAN", "CANoe", "CANalyzer", "C", "LT Spice", "AUTOSAR", "Impedanz- und Vectoranalyze", "C++", "Objektorientierte Programmierung"]
+                },
+                {
+                    type: "content",
+                    bg: "https://i.ytimg.com/vi/lCXWlFLVpK8/maxresdefault.jpg",
+                    sideImg: "https://autovista24.autovistagroup.com/wp-content/uploads/sites/5/2021/06/EV20Battery_2-1024x633.jpg",
+                    title: "Sprachkenntnisse",
+                    role: "",
+                    details: "• Deutsch: B2.1 (aktiv in Weiterentwicklung)<br>• Englisch: Fließend (C1)<br>• Marathi: Muttersprache<br>• Hindi: Verhandlungssicher"
+                },
+                { type: "title", title: "BESONDERE ERFOLGE & AKTIVITÄTEN", bg: "https://prod.tvmimageservice.com/images/GetLibraryImage?fileNameOrId=682994" },
+                {
+                    type: "content",
+                    bg: "https://www.evspecifications.com/images/news/b27d2d7/additional_1.jpg",
+                    sideImg: "https://i.ytimg.com/vi/HqLSffcruVI/maxresdefault.jpg",
+                    title: "Besondere Erfolge",
+                    role: "",
+                    details: "• Zweiter Platz im Bachelor Elektrotechnik – ausgezeichnet mit Medaille für hervorragende Leistungen."
+                },
+                {
+                    type: "content",
+                    bg: "https://cdn.comsol.com/product-new/battery-design-module/full/battery-pack-design-module-hero.png",
+                    sideImg: "https://oorja.energy/wp-content/uploads/2024/06/Simulating-Success-with-oorja.jpg.webp",
+                    title: "Sonstige Aktivitäten",
+                    role: "Systemtechnik-Workshop, Mercedes-Benz AG, Stuttgart (01.2025)",
+                    details: "• Erfolgreiche Teilnahme an einem intensiven viertägigen System Engineering Kurs.<br>• Erarbeitung von Methoden der Anforderungsanalyse, Systemarchitektur, Integration und Validierung.<br>• Entwicklung einer Use-Case-Analyse und Systemfunktionsspezifikationen für HV-Komponenten."
+                },
+                { type: "title", title: "EMPFEHLUNGEN", bg: "https://dkk4qeqny48s0.cloudfront.net/wp-content/uploads/2023/06/EV-revolution.jpg" },
+                {
+                    type: "content",
+                    bg: "https://www.estarbikes.com/wp-content/uploads/2025/01/Solar-Powered-e-Bikes01-1.jpg",
+                    sideImg: "https://diotec.com/files/diotec/files/Post_Electricity%26Photovoltaic_SICW40C120.png",
+                    title: "Empfehlungen von Kollegen",
+                    role: "",
+                    isTestimonials: true,
+                    testimonials: [
+                        { quote: "Umesh hat während seiner Masterarbeit außergewöhnliche Fähigkeiten in der Batteriemodellierung und Optimierung gezeigt. Sein innovativer Ansatz hat unsere SOC-Schätzung erheblich verbessert.", author: "Betreuer bei Mercedes-Benz AG" },
+                        { quote: "Ein engagierter und schneller Lerner, Umeshs Automatisierungsskripte haben unserem Team unzählige Stunden gespart. Sehr empfehlenswert für jede Batterieentwicklungsrolle.", author: "Kollege bei Mercedes-Benz AG" },
+                        { quote: "Umeshs Aufmerksamkeit für Details bei Tests und Validierung war beeindruckend. Er hat maßgeblich zu unseren Hardware-Designs beigetragen.", author: "Teamleiter bei ElringKlinger AG" }
+                    ]
                 },
                 {
                     type: "end",
@@ -413,22 +600,23 @@
             ]
         };
 
-        // --- STATE & VARS ---
+        // --- STATE MANAGEMENT ---
         let currentLang = 'en';
         let slideIndex = 0;
-        let appState = 'hello';
-        let mapSequence = 0; // 0=Zoom, 1=Elring, 2=Car, 3=Merc, 4=Finished
-        
-        // DOM ELEMENTS
+        let appState = 'hello'; // 'hello', 'lang', 'content'
+
+        // DOM Elements
         const screenHello = document.getElementById('screen-hello');
         const screenLang = document.getElementById('screen-lang');
         const screenContent = document.getElementById('screen-content');
-        const screenMap = document.getElementById('screen-map');
         const globalNav = document.getElementById('global-nav');
         const bgDiv = document.getElementById('bg-image');
 
-        function initSystem() {}
+        function initSystem() {
+            // Initial setup
+        }
 
+        // --- NAVIGATION HANDLERS ---
         function goToLanguages() {
             appState = 'lang';
             switchScreen(screenHello, screenLang);
@@ -439,60 +627,27 @@
             document.getElementById('txt-next').innerText = lang === 'en' ? "Next" : "Weiter";
             document.getElementById('txt-back').innerText = lang === 'en' ? "Back" : "Zurück";
             
-            // FILL MAP TEXT
-            const txt = {
-                en: {
-                    ek1t: "Internship", ek1d: "05.2023 – 11.2023", ek1desc: "• Battery System Tests & Validation<br>• Impedance measurements<br>• Test protocols",
-                    ek2t: "Working Student", ek2d: "11.2023 – 01.2024", ek2desc: "• Testing battery components<br>• Evaluating results (X-Frame)<br>• Hardware design",
-                    mb1t: "Working Student", mb1d: "02.2024 – 11.2024", mb1desc: "• MATLAB automation (95% saved)<br>• 3D Simulation (CST)<br>• Impedance measurements",
-                    mb2t: "Master Thesis", mb2d: "12.2024 – 07.2025", mb2desc: "• Voltage Relaxation Modeling (1.0)<br>• Python Optimization<br>• SOC estimation accuracy",
-                    mb3t: "Working Student", mb3d: "08.2025 – Ongoing", mb3desc: "• Machine Learning predictive analysis<br>• Anomaly datasets<br>• Fundamental research"
-                },
-                de: {
-                    ek1t: "Praktikant", ek1d: "05.2023 – 11.2023", ek1desc: "• Batterie-Systemtests & Validierung<br>• Impedanzmessungen<br>• Testprotokolle",
-                    ek2t: "Werkstudent", ek2d: "11.2023 – 01.2024", ek2desc: "• Testen von Batteriekomponenten<br>• Auswertung (X-Frame)<br>• Hardware-Design",
-                    mb1t: "Werkstudent", mb1d: "02.2024 – 11.2024", mb1desc: "• MATLAB-Automatisierung<br>• 3D-Simulation (CST)<br>• Impedanzmessungen",
-                    mb2t: "Masterarbeit", mb2d: "12.2024 – 07.2025", mb2desc: "• Spannungsrelaxationsmodellierung (1.0)<br>• Python-Optimierung<br>• SOC-Schätzung",
-                    mb3t: "Werkstudent", mb3d: "08.2025 – Laufend", mb3desc: "• Machine Learning Analyse<br>• Anomalie-Datensätze<br>• Grundlagenforschung"
-                }
-            };
-
-            const t = txt[lang];
-            document.getElementById('txt-ek-1-t').innerText = t.ek1t; document.getElementById('txt-ek-1-d').innerText = t.ek1d; document.getElementById('txt-ek-1-desc').innerHTML = t.ek1desc;
-            document.getElementById('txt-ek-2-t').innerText = t.ek2t; document.getElementById('txt-ek-2-d').innerText = t.ek2d; document.getElementById('txt-ek-2-desc').innerHTML = t.ek2desc;
-            document.getElementById('txt-mb-1-t').innerText = t.mb1t; document.getElementById('txt-mb-1-d').innerText = t.mb1d; document.getElementById('txt-mb-1-desc').innerHTML = t.mb1desc;
-            document.getElementById('txt-mb-2-t').innerText = t.mb2t; document.getElementById('txt-mb-2-d').innerText = t.mb2d; document.getElementById('txt-mb-2-desc').innerHTML = t.mb2desc;
-            document.getElementById('txt-mb-3-t').innerText = t.mb3t; document.getElementById('txt-mb-3-d').innerText = t.mb3d; document.getElementById('txt-mb-3-desc').innerHTML = t.mb3desc;
-
             appState = 'content';
             slideIndex = 0;
             renderSlide();
+            
+            // Switch to content screen
             switchScreen(screenLang, screenContent);
+            
+            // Show global nav
             setTimeout(() => { globalNav.style.display = 'flex'; }, 800);
         }
 
-        // --- NAVIGATION ---
         function goNext() {
             if (appState === 'hello') goToLanguages();
             else if (appState === 'lang') return;
             else if (appState === 'content') {
-                const currentSlide = data[currentLang][slideIndex];
-                
-                // MAP LOGIC
-                if (currentSlide.type === 'map-experience') {
-                    if (mapSequence < 4) {
-                        advanceMapSequence();
-                        return;
-                    } else {
-                        // Finished map, go to next slide
-                        slideIndex++;
-                        if(slideIndex >= data[currentLang].length) slideIndex = 0;
-                        renderSlide();
-                    }
-                } else {
-                    // Standard Slide
+                if (slideIndex < data[currentLang].length - 1) {
                     slideIndex++;
-                    if (slideIndex >= data[currentLang].length) slideIndex = 0;
+                    renderSlide();
+                } else {
+                    // Loop back to intro slide
+                    slideIndex = 0;
                     renderSlide();
                 }
             }
@@ -500,146 +655,94 @@
 
         function goBack() {
             if (appState === 'hello') return;
-            if (appState === 'lang') { appState = 'hello'; switchScreen(screenLang, screenHello); }
+            
+            if (appState === 'lang') {
+                appState = 'hello';
+                switchScreen(screenLang, screenHello);
+            }
+            
             if (appState === 'content') {
                 if (slideIndex > 0) {
                     slideIndex--;
                     renderSlide();
                 } else {
-                    appState = 'lang'; globalNav.style.display = 'none';
+                    // Back to Language Selection
+                    appState = 'lang';
+                    globalNav.style.display = 'none';
                     switchScreen(screenContent, screenLang);
                 }
             }
         }
 
+        // --- HELPER FUNCTIONS ---
         function switchScreen(from, to) {
             from.classList.remove('active');
-            setTimeout(() => { to.classList.add('active'); }, 800);
+            setTimeout(() => {
+                to.classList.add('active');
+            }, 800);
         }
 
         function renderSlide() {
+            // Fade out content first
             screenContent.classList.remove('active');
-            screenMap.classList.remove('active');
-            screenContent.style.display = 'none';
-            screenMap.style.display = 'none';
             
             setTimeout(() => {
                 const slide = data[currentLang][slideIndex];
                 
-                // IS MAP?
-                if (slide.type === 'map-experience') {
-                    screenMap.style.display = 'block';
-                    screenMap.classList.add('active');
-                    resetMap();
-                    // Auto Start Zoom
-                    setTimeout(() => { advanceMapSequence(); }, 500);
-                    return;
-                }
-                
-                // IS STANDARD
-                screenContent.style.display = 'flex';
-                
+                // Update BG if provided
                 if (slide.bg) {
                     bgDiv.style.backgroundImage = `url('${slide.bg}')`;
-                    bgDiv.style.opacity = '0.5';
+                    bgDiv.style.opacity = '0.8';
                 }
 
                 let html = '<div class="content-container">';
-                if (slide.sideImg) html += `<img src="${slide.sideImg}" alt="Side Image" class="side-image">`;
+                
+                if (slide.sideImg) {
+                    html += `<img src="${slide.sideImg}" alt="Side Image" class="side-image">`;
+                }
+                
                 html += '<div class="text-content">';
                 
                 if (slide.type === 'intro') {
-                    html += `<img src="${slide.sideImg}" class="profile-photo" alt="Profile"><h1>${slide.title}</h1><h2>${slide.subtitle}</h2><p>${slide.text}</p>`;
+                    html += `
+                        <img src="${slide.sideImg}" class="profile-photo" alt="Profile">
+                        <h1>${slide.title}</h1>
+                        <h2>${slide.subtitle}</h2>
+                        <p>${slide.text}</p>
+                    `;
                 } else if (slide.type === 'title') {
                     html += `<h1>${slide.title}</h1>`;
                 } else if (slide.type === 'content') {
-                    html += `<h2>${slide.title}</h2><h4>${slide.role}</h4>`;
-                    if (slide.isSkills) html += `<div>${slide.skills.map(s => `<span class="skills-tag">${s}</span>`).join('')}</div>`;
-                    else html += `<p>${slide.details}</p>`;
+                    html += `
+                        <h2>${slide.title}</h2>
+                        <h4>${slide.role}</h4>
+                    `;
+                    
+                    if (slide.isSkills) {
+                        html += `<div>${slide.skills.map(s => `<span class="skills-tag">${s}</span>`).join('')}</div>`;
+                    } else if (slide.isTestimonials) {
+                        html += slide.testimonials.map(t => `<div class="testimonial"><p>"${t.quote}"</p><p style="text-align:right; font-size:0.9rem">- ${t.author}</p></div>`).join('');
+                    } else {
+                        html += `<p>${slide.details}</p>`;
+                    }
+
                 } else if (slide.type === 'end') {
-                    html += `<h1>${slide.title}</h1><h2>${slide.subtitle}</h2>`;
+                    html += `
+                        <h1>${slide.title}</h1>
+                        <h2>${slide.subtitle}</h2>
+                        <div style="margin-top:20px; display:flex; gap:20px;">
+                            <button class="lang-btn">Email</button>
+                            <button class="lang-btn">LinkedIn</button>
+                            <button class="lang-btn">XING</button>
+                        </div>
+                    `;
                 }
                 
                 html += '</div></div>';
+                
                 screenContent.innerHTML = html;
                 screenContent.classList.add('active');
             }, 600);
-        }
-
-        // --- MAP SEQUENCER ---
-        function resetMap() {
-            mapSequence = 0;
-            // Reset styles
-            document.getElementById('geo-map').style.transform = "scale(1)"; // World view
-            document.getElementById('road-svg-container').style.opacity = "0";
-            document.getElementById('moving-car').style.top = "73%"; 
-            document.getElementById('moving-car').style.left = "58%";
-            document.getElementById('moving-car').style.opacity = "0";
-            
-            document.getElementById('marker-neuffen').style.opacity = "0";
-            document.getElementById('marker-merc').style.opacity = "0";
-            
-            document.getElementById('exp-group-neuffen').style.opacity = "0";
-            document.getElementById('exp-group-merc').style.opacity = "0";
-            
-            // Collapse all cards
-            document.querySelectorAll('.job-card').forEach(c => c.classList.remove('active'));
-        }
-
-        function advanceMapSequence() {
-            mapSequence++;
-            
-            if (mapSequence === 1) {
-                // ZOOM IN
-                document.getElementById('geo-map').style.transform = "scale(14)"; // Big zoom
-                
-                setTimeout(() => {
-                    document.getElementById('marker-neuffen').style.opacity = "1";
-                    document.getElementById('exp-group-neuffen').style.opacity = "1";
-                    // Auto open first internship
-                    document.querySelector('#exp-group-neuffen .job-card:first-child').classList.add('active');
-                }, 2000); // Wait for zoom
-            }
-            else if (mapSequence === 2) {
-                // START DRIVING
-                // Close Neuffen cards to clean up view
-                document.querySelectorAll('#exp-group-neuffen .job-card').forEach(c => c.classList.remove('active'));
-                
-                document.getElementById('road-svg-container').style.opacity = "1";
-                const car = document.getElementById('moving-car');
-                car.style.opacity = "1";
-                
-                // Move Car (Neuffen -> Merc)
-                car.style.top = "35%";
-                car.style.left = "50%";
-                
-                setTimeout(() => {
-                    // ARRIVED
-                    document.getElementById('marker-merc').style.opacity = "1";
-                    document.getElementById('exp-group-merc').style.opacity = "1";
-                    // Auto open first Merc job
-                    document.querySelector('#exp-group-merc .job-card:first-child').classList.add('active');
-                    
-                    // Allow Interaction now
-                    mapSequence = 4; // Finished animation
-                }, 2500);
-            }
-        }
-
-        // --- ACCORDION LOGIC ---
-        function toggleCard(card) {
-            // Only allow toggling if we are in map view
-            if (!screenMap.classList.contains('active')) return;
-
-            // If card is already active, close it
-            if (card.classList.contains('active')) {
-                card.classList.remove('active');
-            } else {
-                // Close all others
-                document.querySelectorAll('.job-card').forEach(c => c.classList.remove('active'));
-                // Open this one
-                card.classList.add('active');
-            }
         }
 
         // Keyboard support
