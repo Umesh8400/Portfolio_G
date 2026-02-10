@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Umesh Joshi | Portfolio</title>
+<title>Portfolio | Professional Experience Map</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Leaflet -->
@@ -15,50 +15,89 @@
   --bg:#0f172a;
   --text:#ffffff;
 }
-*{box-sizing:border-box;font-family:Segoe UI,Arial}
+*{
+  box-sizing:border-box;
+  font-family:Segoe UI,Arial;
+}
 body{
-  margin:0;background:var(--bg);color:var(--text);
-  height:100vh;overflow:hidden;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  height:100vh;
+  overflow:hidden;
 }
-.screen{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;
-  transition:.8s;
-}
-.screen.active{opacity:1;pointer-events:auto}
 
+/* ---------- SCREENS ---------- */
+.screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.6s;
+}
+.screen.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ---------- BUTTONS ---------- */
 button{
   padding:14px 40px;
   background:transparent;
   border:2px solid white;
   color:white;
   cursor:pointer;
-  font-size:1.2rem;
+  font-size:1.1rem;
 }
-button:hover{background:white;color:var(--primary)}
+button:hover{
+  background:white;
+  color:var(--primary);
+}
 
-h1{font-size:3rem;margin-bottom:1rem}
-h2{color:var(--primary)}
-p{max-width:800px;text-align:center}
+h1{
+  font-size:3rem;
+  margin-bottom:1rem;
+}
+p{
+  max-width:700px;
+  text-align:center;
+}
 
-/* Map */
+/* ---------- MAP ---------- */
 #map-wrapper{
-  position:fixed;inset:0;
+  position:fixed;
+  inset:0;
   z-index:999;
   display:none;
 }
-#map-wrapper.show{display:block}
-#map{width:100%;height:100%}
-
-.map-ui{
-  position:absolute;bottom:20px;
-  left:50%;transform:translateX(-50%);
-  display:flex;gap:12px;
-  background:rgba(0,0,0,.5);
-  padding:10px;border-radius:12px;
+#map-wrapper.show{
+  display:block;
 }
+
+#map{
+  width:100%;
+  height:100%;
+  z-index:1;
+}
+
+/* ---------- MAP UI ---------- */
+.map-ui{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:12px;
+  background:rgba(0,0,0,.6);
+  padding:10px 14px;
+  border-radius:14px;
+  z-index:1001;
+}
+
 .map-item{
   padding:10px 14px;
   cursor:pointer;
@@ -69,15 +108,24 @@ p{max-width:800px;text-align:center}
   border-left-color:var(--primary);
   background:rgba(255,255,255,.1);
 }
+
 .map-detail{
-  position:absolute;top:20px;right:20px;
+  position:absolute;
+  top:20px;
+  right:20px;
   max-width:420px;
-  background:rgba(0,0,0,.6);
-  padding:16px;border-radius:12px;
+  background:rgba(0,0,0,.65);
+  padding:16px;
+  border-radius:14px;
+  z-index:1001;
 }
+
 .map-close{
-  position:absolute;top:20px;left:20px;
-  padding:10px;
+  position:absolute;
+  top:20px;
+  left:20px;
+  padding:10px 16px;
+  z-index:1002;
 }
 </style>
 </head>
@@ -86,21 +134,21 @@ p{max-width:800px;text-align:center}
 
 <!-- INTRO -->
 <div id="screen-1" class="screen active">
-  <h1>Hello</h1>
-  <p>Welcome to my Battery Engineering Portfolio</p>
-  <button onclick="goToExperience()">Start →</button>
+  <h1>Hello 👋</h1>
+  <p>Welcome to my portfolio. Explore my professional journey on an interactive map.</p>
+  <button onclick="goToExperience()">Start</button>
 </div>
 
-<!-- EXPERIENCE SLIDE -->
+<!-- EXPERIENCE -->
 <div id="screen-2" class="screen">
   <h1>PROFESSIONAL EXPERIENCE</h1>
-  <p>Explore my journey geographically</p>
+  <p>Click below to explore my experience geographically.</p>
   <button onclick="openMap()">View Experience on Map</button>
 </div>
 
 <!-- MAP -->
 <div id="map-wrapper">
-  <button class="map-close" onclick="closeMap()">Close ✕</button>
+  <button class="map-close" onclick="closeMap()">✕ Close</button>
   <div id="map"></div>
   <div id="timeline" class="map-ui"></div>
   <div id="detail" class="map-detail"></div>
@@ -112,25 +160,27 @@ const experiences = [
   {
     title:"ElringKlinger AG – Internship",
     date:"05.2023 – 11.2023",
-    location:[48.624,9.366], // Neuffen
+    location:[48.624, 9.366],
     tasks:"Battery system testing, ECU validation, impedance measurements, documentation."
   },
   {
     title:"ElringKlinger AG – Working Student",
     date:"11.2023 – 01.2024",
-    location:[48.624,9.366], // Same place
+    location:[48.624, 9.366],
     tasks:"Test automation, data evaluation, hardware development support."
   },
   {
     title:"Mercedes-Benz AG – Working Student",
-    date:"02.2024 – Ongoing",
-    location:[48.7758,9.1829], // Stuttgart
+    date:"02.2024 – Present",
+    location:[48.7758, 9.1829],
     tasks:"Battery modeling, MATLAB automation, HV system simulations."
   }
 ];
 
 /* ---------- STATE ---------- */
-let map, markers=[], current=0;
+let map;
+let markers = [];
+let current = 0;
 
 /* ---------- NAV ---------- */
 function goToExperience(){
@@ -143,52 +193,74 @@ function openMap(){
   document.getElementById("map-wrapper").classList.add("show");
 
   if(!map){
-    map=L.map("map").setView([51,10],5);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      {attribution:"© OpenStreetMap"}).addTo(map);
+    map = L.map("map").setView([51, 10], 5);
+
+    L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      { attribution:"© OpenStreetMap" }
+    ).addTo(map);
   }
 
-  markers.forEach(m=>map.removeLayer(m));
-  markers=[];
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
 
-  const timeline=document.getElementById("timeline");
-  timeline.innerHTML="";
+  const timeline = document.getElementById("timeline");
+  timeline.innerHTML = "";
 
-  experiences.forEach((e,i)=>{
-    const m=L.circleMarker(e.location,{radius:8}).addTo(map);
-    m.on("click",()=>focusExp(i));
-    markers.push(m);
+  experiences.forEach((e, i) => {
+    const marker = L.circleMarker(e.location, {
+      radius: 8,
+      color: "#3498db",
+      fillOpacity: 1
+    }).addTo(map);
 
-    const item=document.createElement("div");
-    item.className="map-item";
-    item.innerHTML=`<b>${e.title}</b><br>${e.date}`;
-    item.onclick=()=>focusExp(i);
-    item.dataset.i=i;
+    marker.on("click", () => focusExp(i));
+    markers.push(marker);
+
+    const item = document.createElement("div");
+    item.className = "map-item";
+    item.dataset.i = i;
+    item.innerHTML = `<b>${e.title}</b><br>${e.date}`;
+    item.onclick = () => focusExp(i);
     timeline.appendChild(item);
   });
 
-  focusExp(0,true);
+  /* 🔥 CRITICAL FIX */
+  setTimeout(() => {
+    map.invalidateSize();
+    focusExp(0, true);
+  }, 300);
 }
 
-function focusExp(i,instant=false){
-  current=i;
-  const e=experiences[i];
-  if(instant) map.setView(e.location,12);
-  else map.flyTo(e.location,12,{duration:1.5});
+function focusExp(i, instant=false){
+  current = i;
+  const e = experiences[i];
 
-  document.querySelectorAll(".map-item").forEach(el=>{
-    el.classList.toggle("active",el.dataset.i==i);
+  if(instant){
+    map.setView(e.location, 12);
+  } else {
+    map.flyTo(e.location, 12, { duration: 1.4 });
+  }
+
+  document.querySelectorAll(".map-item").forEach(el => {
+    el.classList.toggle("active", el.dataset.i == i);
   });
 
-  document.getElementById("detail").innerHTML=
-    `<h3>${e.title}</h3>
-     <p><i>${e.date}</i></p>
-     <p>${e.tasks}</p>`;
+  document.getElementById("detail").innerHTML = `
+    <h3>${e.title}</h3>
+    <p><i>${e.date}</i></p>
+    <p>${e.tasks}</p>
+  `;
 }
 
 function closeMap(){
   document.getElementById("map-wrapper").classList.remove("show");
 }
+
+/* Extra safety */
+window.addEventListener("resize", () => {
+  if(map) map.invalidateSize();
+});
 </script>
 
 </body>
