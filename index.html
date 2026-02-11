@@ -11,9 +11,7 @@
             --white: #ffffff;
             --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
-
         body {
             background-color: #0f172a;
             color: var(--white);
@@ -22,7 +20,6 @@
             width: 100vw;
             user-select: none;
         }
-
         /* --- BACKGROUNDS --- */
         #bg-image {
             position: absolute;
@@ -33,7 +30,6 @@
             transition: opacity 1s ease-in-out;
             opacity: 0.8;
         }
-
         .stars {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px);
@@ -42,18 +38,15 @@
             opacity: 0.5;
             animation: twinkle 5s infinite;
         }
-
         @keyframes twinkle {
             0%, 100% { opacity: 0.5; }
             50% { opacity: 0.8; }
         }
-
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.6);
             z-index: -1;
         }
-
         /* --- SCREENS --- */
         .screen {
             position: absolute;
@@ -67,13 +60,11 @@
             transition: opacity 0.8s ease, transform 0.8s ease;
             transform: translateY(20px);
         }
-
         .screen.active {
             opacity: 1;
             pointer-events: all;
             transform: translateY(0);
         }
-
         /* --- SCREEN 1: HELLO CLOUD --- */
         .hello-cloud {
             position: relative;
@@ -81,33 +72,28 @@
             height: 60vh;
             max-width: 800px;
         }
-
         .cloud-word {
             position: absolute;
             color: rgba(255,255,255,0.8);
             font-weight: bold;
             animation: float 5s ease-in-out infinite;
         }
-
         @keyframes float {
             0% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0); }
         }
-
         .w-main {
             font-size: 5rem; color: #fff; top: 50%; left: 50%;
             transform: translate(-50%, -50%); z-index: 10;
             text-shadow: 0 0 20px rgba(255,255,255,0.4);
             animation: pulse-main 2s infinite;
         }
-
         @keyframes pulse-main {
             0% { text-shadow: 0 0 20px rgba(255,255,255,0.4); }
             50% { text-shadow: 0 0 30px rgba(52, 152, 219, 0.6); }
             100% { text-shadow: 0 0 20px rgba(255,255,255,0.4); }
         }
-
         /* Scattered words */
         .w-1 { top: 20%; left: 20%; font-size: 1.5rem; transform: rotate(-10deg); animation-delay: 0.5s; }
         .w-2 { top: 15%; right: 25%; font-size: 2rem; animation-delay: 1s; }
@@ -119,7 +105,16 @@
         .w-8 { top: 10%; left: 45%; font-size: 1.5rem; animation-delay: 4s; }
         .w-9 { top: 60%; right: 5%; font-size: 1.5rem; transform: rotate(90deg); animation-delay: 4.5s; }
         .w-10 { top: 60%; left: 25%; font-size: 1.2rem; animation-delay: 5s; }
-
+        .w-11 { top: 5%; left: 30%; font-size: 1.7rem; animation-delay: 0.2s; }
+        .w-12 { top: 5%; right: 30%; font-size: 1.3rem; transform: rotate(10deg); animation-delay: 0.4s; }
+        .w-13 { bottom: 5%; left: 30%; font-size: 2rem; animation-delay: 0.6s; }
+        .w-14 { bottom: 5%; right: 30%; font-size: 1.6rem; animation-delay: 0.8s; }
+        .w-15 { top: 25%; left: 5%; font-size: 1.4rem; transform: rotate(-80deg); animation-delay: 1.0s; }
+        .w-16 { top: 25%; right: 5%; font-size: 1.8rem; animation-delay: 1.2s; }
+        .w-17 { bottom: 30%; left: 5%; font-size: 1.5rem; transform: rotate(80deg); animation-delay: 1.4s; }
+        .w-18 { bottom: 30%; right: 5%; font-size: 1.2rem; animation-delay: 1.6s; }
+        .w-19 { top: 50%; left: 5%; font-size: 1.9rem; animation-delay: 1.8s; }
+        .w-20 { top: 50%; right: 5%; font-size: 1.1rem; transform: rotate(15deg); animation-delay: 2.0s; }
         .welcome-line {
             margin-top: 2rem;
             font-size: 1.5rem;
@@ -129,12 +124,10 @@
             padding-top: 1rem;
             animation: fadeIn 2s ease-in;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
         /* --- SCREEN 2: LANGUAGES --- */
         .lang-btn {
             padding: 15px 50px;
@@ -148,9 +141,7 @@
             text-transform: uppercase;
             animation: pulse 2s infinite;
         }
-
         .lang-btn:hover { background: white; color: var(--primary); transform: scale(1.05); }
-
         /* --- CONTENT SLIDES --- */
         .content-container {
             display: flex;
@@ -159,7 +150,6 @@
             max-width: 1200px;
             padding: 20px;
         }
-
         .side-image {
             width: 300px;
             height: auto;
@@ -168,22 +158,18 @@
             box-shadow: 0 0 20px rgba(52, 152, 219, 0.4);
             animation: slideInLeft 1s ease-out;
         }
-
         @keyframes slideInLeft {
             from { transform: translateX(-50px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-
         .text-content {
             max-width: 600px;
             animation: slideInRight 1s ease-out;
         }
-
         @keyframes slideInRight {
             from { transform: translateX(50px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-
         .profile-photo {
             width: 200px; height: 200px;
             border-radius: 50%;
@@ -193,25 +179,20 @@
             box-shadow: 0 0 30px rgba(52, 152, 219, 0.4);
             animation: rotateIn 1.5s ease-out;
         }
-
         @keyframes rotateIn {
             from { transform: rotate(-10deg); opacity: 0; }
             to { transform: rotate(0); opacity: 1; }
         }
-
         h1 { font-size: 3rem; margin-bottom: 1rem; animation: fadeIn 1s; }
         h2 { font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem; }
         h4 { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 1.5rem; font-style: italic; }
         p { font-size: 1.2rem; line-height: 1.6; text-align: left; }
-
         .skills-tag {
             display: inline-block; padding: 8px 20px; margin: 5px;
             background: rgba(255,255,255,0.1); border-left: 3px solid var(--primary);
             transition: transform 0.3s;
         }
-
         .skills-tag:hover { transform: scale(1.1); }
-
         .testimonial {
             background: rgba(255,255,255,0.1);
             padding: 20px;
@@ -220,7 +201,6 @@
             text-align: left;
             animation: fadeIn 1.5s;
         }
-
         /* --- NAVIGATION UI --- */
         .nav-ui {
             position: absolute; bottom: 30px; width: 100%;
@@ -228,21 +208,18 @@
             z-index: 100;
             display: none; /* Hidden initially */
         }
-
         .nav-btn {
             font-size: 1.2rem; font-weight: bold; cursor: pointer;
             color: white; opacity: 0.7; transition: 0.3s;
             text-transform: uppercase; display: flex; align-items: center; gap: 10px;
         }
-
         .nav-btn:hover { opacity: 1; color: var(--primary); transform: scale(1.05); }
         .btn-next { animation: pulse 2s infinite; }
-
         /* Click Zones */
         .click-zone { position: absolute; top:0; height: 100%; z-index: 50; }
         .zone-right { right: 0; width: 40%; cursor: e-resize; }
         .zone-left { left: 0; width: 15%; cursor: w-resize; }
-        
+       
         .start-btn {
             margin-top: 30px;
             padding: 10px 30px;
@@ -255,32 +232,38 @@
     </style>
 </head>
 <body onload="initSystem()">
-
     <div id="stars-layer" class="stars"></div>
     <div id="bg-image"></div>
     <div class="overlay"></div>
-
     <div class="click-zone zone-left" onclick="goBack()"></div>
     <div class="click-zone zone-right" onclick="goNext()"></div>
-
     <div id="screen-hello" class="screen active">
         <div class="hello-cloud">
-            <span class="cloud-word w-main">Hello</span>
-            <span class="cloud-word w-1">Namaskar</span>
+            <span class="cloud-word w-main">Hallo</span>
+            <span class="cloud-word w-1">नमस्कार</span>
             <span class="cloud-word w-2">Bonjour</span>
-            <span class="cloud-word w-3">Hallo</span>
+            <span class="cloud-word w-3">Hello</span>
             <span class="cloud-word w-4">Hola</span>
             <span class="cloud-word w-5">Ciao</span>
-            <span class="cloud-word w-6">Salaam</span>
+            <span class="cloud-word w-6">سلام</span>
             <span class="cloud-word w-7">Guten Tag</span>
-            <span class="cloud-word w-8">Konnichiwa</span>
+            <span class="cloud-word w-8">こんにちは</span>
             <span class="cloud-word w-9">Jambo</span>
-            <span class="cloud-word w-10">Zdravstvuyte</span>
+            <span class="cloud-word w-10">Здравствуйте</span>
+            <span class="cloud-word w-11">你好</span>
+            <span class="cloud-word w-12">안녕하세요</span>
+            <span class="cloud-word w-13">Olá</span>
+            <span class="cloud-word w-14">Hej</span>
+            <span class="cloud-word w-15">Merhaba</span>
+            <span class="cloud-word w-16">שלום</span>
+            <span class="cloud-word w-17">Γεια</span>
+            <span class="cloud-word w-18">สวัสดี</span>
+            <span class="cloud-word w-19">Halo</span>
+            <span class="cloud-word w-20">Привет</span>
         </div>
         <div class="welcome-line">Welcome to My Battery Engineering Portfolio</div>
         <button class="start-btn" onclick="goToLanguages()">Start &#8594;</button>
     </div>
-
     <div id="screen-lang" class="screen">
         <h2>Select Language / Sprache Wählen</h2>
         <div>
@@ -288,15 +271,12 @@
             <button class="lang-btn" onclick="selectLang('de')">Deutsch</button>
         </div>
     </div>
-
     <div id="screen-content" class="screen">
         </div>
-
     <div id="global-nav" class="nav-ui">
         <div class="nav-btn" onclick="goBack()">&#8592; <span id="txt-back">Back</span></div>
         <div class="nav-btn btn-next" onclick="goNext()"><span id="txt-next">Next</span> &#8594;</div>
     </div>
-
     <script>
         // --- CONTENT DATA ---
         const data = {
@@ -304,7 +284,7 @@
                 {
                     type: "intro",
                     bg: "E_Mobility.jpg",
-                    sideImg: "avatar.jpg", 
+                    sideImg: "avatar.jpg",
                     title: "Hello, I am Umesh Yadneshwar Joshi",
                     subtitle: "M.Eng. in Renewable Energies & E-Mobility",
                     text: "An innovative Electrical Engineer specializing in Battery Development, Algorithms, Applications, and System Validation. Passionate about advancing EV technology at Mercedes-Benz AG. Born on 08.04.2000 in India, currently based in Esslingen, Stuttgart."
@@ -599,45 +579,39 @@
                 }
             ]
         };
-
         // --- STATE MANAGEMENT ---
         let currentLang = 'en';
         let slideIndex = 0;
         let appState = 'hello'; // 'hello', 'lang', 'content'
-
         // DOM Elements
         const screenHello = document.getElementById('screen-hello');
         const screenLang = document.getElementById('screen-lang');
         const screenContent = document.getElementById('screen-content');
         const globalNav = document.getElementById('global-nav');
         const bgDiv = document.getElementById('bg-image');
-
         function initSystem() {
             // Initial setup
         }
-
         // --- NAVIGATION HANDLERS ---
         function goToLanguages() {
             appState = 'lang';
             switchScreen(screenHello, screenLang);
         }
-
         function selectLang(lang) {
             currentLang = lang;
             document.getElementById('txt-next').innerText = lang === 'en' ? "Next" : "Weiter";
             document.getElementById('txt-back').innerText = lang === 'en' ? "Back" : "Zurück";
-            
+           
             appState = 'content';
             slideIndex = 0;
             renderSlide();
-            
+           
             // Switch to content screen
             switchScreen(screenLang, screenContent);
-            
+           
             // Show global nav
             setTimeout(() => { globalNav.style.display = 'flex'; }, 800);
         }
-
         function goNext() {
             if (appState === 'hello') goToLanguages();
             else if (appState === 'lang') return;
@@ -652,15 +626,14 @@
                 }
             }
         }
-
         function goBack() {
             if (appState === 'hello') return;
-            
+           
             if (appState === 'lang') {
                 appState = 'hello';
                 switchScreen(screenLang, screenHello);
             }
-            
+           
             if (appState === 'content') {
                 if (slideIndex > 0) {
                     slideIndex--;
@@ -673,7 +646,6 @@
                 }
             }
         }
-
         // --- HELPER FUNCTIONS ---
         function switchScreen(from, to) {
             from.classList.remove('active');
@@ -681,28 +653,26 @@
                 to.classList.add('active');
             }, 800);
         }
-
         function renderSlide() {
             // Fade out content first
             screenContent.classList.remove('active');
-            
+           
             setTimeout(() => {
                 const slide = data[currentLang][slideIndex];
-                
+               
                 // Update BG if provided
                 if (slide.bg) {
                     bgDiv.style.backgroundImage = `url('${slide.bg}')`;
                     bgDiv.style.opacity = '0.8';
                 }
-
                 let html = '<div class="content-container">';
-                
+               
                 if (slide.sideImg) {
                     html += `<img src="${slide.sideImg}" alt="Side Image" class="side-image">`;
                 }
-                
+               
                 html += '<div class="text-content">';
-                
+               
                 if (slide.type === 'intro') {
                     html += `
                         <!-- <img src="${slide.sideImg}" class="profile-photo" alt="Profile"> -->
@@ -717,7 +687,7 @@
                         <h2>${slide.title}</h2>
                         <h4>${slide.role}</h4>
                     `;
-                    
+                   
                     if (slide.isSkills) {
                         html += `<div>${slide.skills.map(s => `<span class="skills-tag">${s}</span>`).join('')}</div>`;
                     } else if (slide.isTestimonials) {
@@ -725,7 +695,6 @@
                     } else {
                         html += `<p>${slide.details}</p>`;
                     }
-
                 } else if (slide.type === 'end') {
                     html += `
                         <h1>${slide.title}</h1>
@@ -737,14 +706,13 @@
                         </div>
                     `;
                 }
-                
+               
                 html += '</div></div>';
-                
+               
                 screenContent.innerHTML = html;
                 screenContent.classList.add('active');
             }, 600);
         }
-
         // Keyboard support
         document.addEventListener('keydown', (e) => {
             if (e.key === "ArrowRight") goNext();
