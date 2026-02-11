@@ -235,6 +235,65 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .education-container {
+            position: relative;
+            width: 40%;
+            height: 400px;
+        }
+        .map-container {
+            position: relative;
+            width: 60%;
+            height: 400px;
+        }
+        .map-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            box-shadow: 0 0 10px var(--primary);
+        }
+        .dot.active {
+            transform: scale(1);
+        }
+        #dot-mumbai {
+            left: 70.22%;
+            top: 39.44%;
+        }
+        #dot-stralsund {
+            left: 53.61%;
+            top: 19.83%;
+        }
+        .education-item {
+            position: absolute;
+            width: 90%;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .education-item.active {
+            opacity: 1;
+        }
+        .line {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #ffffff, var(--primary));
+            width: 0;
+            transition: width 1s ease-in-out;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
         /* --- NAVIGATION UI --- */
         .nav-ui {
             position: absolute; bottom: 30px; width: 100%;
@@ -382,19 +441,28 @@
                     isEducation: true,
                     educations: [
                         {
-                            title: "Hochschule Stralsund, Germany",
-                            role: "Master in Renewable Energies and E-Mobility (03.2022 – 08.2025)",
-                            details: "Focus areas: Vehicle Management Systems, Vehicle Simulation and Test Drives, System Theory, Hydrogen Technology, Control of Electric Drives."
+                            title: "Maharashtra State Board of Technical Education (MSBTE), India",
+                            role: "Diploma in Electrical Engineering (06.2015 – 05.2018, Grade: 1.9)",
+                            details: "Focus areas: Basics of Electrical Engineering, Electrical Circuits and Networks, AC Machines, Power Electronics, Microcontrollers and Applications.",
+                            id: "diploma",
+                            dot: "mumbai",
+                            top: "45%"
                         },
                         {
                             title: "University of Mumbai, India",
                             role: "Bachelor of Engineering - Electrical Engineering (08.2018 – 06.2021, Grade: 1.3)",
-                            details: "Focus areas: Power Supply Systems, Electrical Networks, Electrical Machines, Power Electronics, Drives and Control, Environmental Management."
+                            details: "Focus areas: Power Supply Systems, Electrical Networks, Electrical Machines, Power Electronics, Drives and Control, Environmental Management.",
+                            id: "bachelor",
+                            dot: "mumbai",
+                            top: "55%"
                         },
                         {
-                            title: "Maharashtra State Board of Technical Education (MSBTE), India",
-                            role: "Diploma in Electrical Engineering (06.2015 – 05.2018, Grade: 1.9)",
-                            details: "Focus areas: Basics of Electrical Engineering, Electrical Circuits and Networks, AC Machines, Power Electronics, Microcontrollers and Applications."
+                            title: "Hochschule Stralsund, Germany",
+                            role: "Master in Renewable Energies and E-Mobility (03.2022 – 08.2025)",
+                            details: "Focus areas: Vehicle Management Systems, Vehicle Simulation and Test Drives, System Theory, Hydrogen Technology, Control of Electric Drives.",
+                            id: "master",
+                            dot: "stralsund",
+                            top: "20%"
                         }
                     ]
                 },
@@ -530,19 +598,28 @@
                     isEducation: true,
                     educations: [
                         {
-                            title: "Hochschule Stralsund, Deutschland",
-                            role: "Master in Erneuerbare Energien und E-Mobilität (03.2022 – 08.2025)",
-                            details: "Schwerpunktfächer: Fahrzeugmanagementsysteme, Fahrzeugsimulation und Testfahrt, Systemtheorie, Wasserstofftechnologie, Steuerung elektrischer Antriebe."
+                            title: "Maharashtra State Board of Technical Education (MSBTE), Indien",
+                            role: "Diplom in Electrotechnik (06.2015 – 05.2018, Abschlussnote: 1.9)",
+                            details: "Schwerpunktfächer: Grundlagen der Elektrotechnik, Elektrische Schaltungen und Netzwerke, Wechselstrommaschinen, Leistungselektronik, Mikrocontroller und Anwendungen.",
+                            id: "diploma",
+                            dot: "mumbai",
+                            top: "45%"
                         },
                         {
                             title: "University of Mumbai, Indien",
                             role: "Bachelor of Engineering - Electrotechnik (08.2018 – 06.2021, Abschlussnote: 1.3)",
-                            details: "Schwerpunktfächer: Energieversorgungssysteme, Elektrische Netzwerke, Elektrische Maschinen, Leistungselektronik, Antriebe und Steuerung, Umweltmanagement."
+                            details: "Schwerpunktfächer: Energieversorgungssysteme, Elektrische Netzwerke, Elektrische Maschinen, Leistungselektronik, Antriebe und Steuerung, Umweltmanagement.",
+                            id: "bachelor",
+                            dot: "mumbai",
+                            top: "55%"
                         },
                         {
-                            title: "Maharashtra State Board of Technical Education (MSBTE), Indien",
-                            role: "Diplom in Electrotechnik (06.2015 – 05.2018, Abschlussnote: 1.9)",
-                            details: "Schwerpunktfächer: Grundlagen der Elektrotechnik, Elektrische Schaltungen und Netzwerke, Wechselstrommaschinen, Leistungselektronik, Mikrocontroller und Anwendungen."
+                            title: "Hochschule Stralsund, Deutschland",
+                            role: "Master in Erneuerbare Energien und E-Mobilität (03.2022 – 08.2025)",
+                            details: "Schwerpunktfächer: Fahrzeugmanagementsysteme, Fahrzeugsimulation und Testfahrt, Systemtheorie, Wasserstofftechnologie, Steuerung elektrischer Antriebe.",
+                            id: "master",
+                            dot: "stralsund",
+                            top: "20%"
                         }
                     ]
                 },
@@ -695,6 +772,19 @@
                 to.classList.add('active');
             }, 800);
         }
+        function activateEducation(itemId, dotId) {
+            const item = document.getElementById(`item-${itemId}`);
+            const dot = document.getElementById(`dot-${dotId}`);
+            if (item && dot) {
+                item.classList.add('active');
+                dot.classList.add('active');
+                const line = item.querySelector('.line');
+                const itemRect = item.getBoundingClientRect();
+                const dotRect = dot.getBoundingClientRect();
+                const lineWidth = dotRect.left - itemRect.right + (dotRect.width / 2);
+                line.style.width = `${lineWidth}px`;
+            }
+        }
         function renderSlide() {
             // Fade out content first
             screenContent.classList.remove('active');
@@ -726,15 +816,21 @@
                 } else if (slide.type === 'content') {
                     if (slide.isEducation) {
                         html += '<div class="education-container">';
-                        slide.educations.forEach((ed, idx) => {
+                        slide.educations.forEach((ed) => {
                             html += `
-                                <div class="education-card" style="--idx: ${idx};">
+                                <div class="education-item" id="item-${ed.id}" style="top: ${ed.top};">
                                     <h3>${ed.title}</h3>
                                     <h4>${ed.role}</h4>
                                     <p>${ed.details}</p>
+                                    <div class="line"></div>
                                 </div>
                             `;
                         });
+                        html += '</div>';
+                        html += '</div><div class="map-container">';
+                        html += '<img class="map-img" src="https://www.freeworldmaps.net/world/simple/world-simple-large.png" alt="World Map">';
+                        html += '<div id="dot-mumbai" class="dot"></div>';
+                        html += '<div id="dot-stralsund" class="dot"></div>';
                         html += '</div>';
                     } else {
                         html += `
@@ -748,6 +844,7 @@
                         } else {
                             html += `<p>${slide.details}</p>`;
                         }
+                        html += '</div>';
                     }
                 } else if (slide.type === 'end') {
                     html += `
@@ -759,14 +856,20 @@
                             <button class="lang-btn">XING</button>
                         </div>
                     `;
+                    html += '</div>';
                 }
                
-                html += '</div></div>';
+                html += '</div>';
                
                 screenContent.innerHTML = html;
                 screenContent.classList.add('active');
                 setTimeout(() => {
                     document.querySelector('.text-content')?.classList.add('animate');
+                    if (slide.isEducation) {
+                        setTimeout(() => activateEducation('diploma', 'mumbai'), 1000);
+                        setTimeout(() => activateEducation('bachelor', 'mumbai'), 3000);
+                        setTimeout(() => activateEducation('master', 'stralsund'), 5000);
+                    }
                 }, 100);
             }, 600);
         }
