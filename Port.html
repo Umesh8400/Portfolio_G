@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umesh Joshi | Battery Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f1a;
+            --accent: #00d2ff;
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --card-hover: rgba(0, 210, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND GRADIENT --- */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 10% 10%, #1e293b 0%, #0b0f1a 100%);
+            z-index: -2;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 15, 26, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-weight: 800; font-size: 1.1rem; letter-spacing: 2px; color: var(--accent); }
+        
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        nav ul li a:hover { color: var(--accent); }
+
+        /* --- LAYOUT --- */
+        section { padding: 120px 15%; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        h2.section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--text-main);
+        }
+        h2.section-title::after { content: ""; height: 1px; background: var(--border); flex-grow: 1; }
+
+        /* --- HERO --- */
+        .hero-tag { color: var(--accent); font-weight: 600; letter-spacing: 4px; margin-bottom: 15px; font-size: 0.9rem; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
+        .hero-desc { max-width: 650px; color: var(--text-dim); font-size: 1.15rem; margin-bottom: 35px; }
+
+        /* --- CARDS (Experience & Education) --- */
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 35px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card:hover { border-color: var(--accent); background: var(--card-hover); transform: translateX(10px); }
+        .card h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 8px; }
+        .card .meta { display: flex; justify-content: space-between; color: var(--text-dim); font-size: 0.9rem; margin-bottom: 15px; font-weight: 500; }
+        .card ul { list-style: none; }
+        .card ul li { margin-bottom: 8px; position: relative; padding-left: 20px; color: var(--text-dim); font-size: 0.95rem; }
+        .card ul li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .skill-item {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            cursor: default;
+        }
+        .skill-item:hover { background: var(--accent); color: #000; font-weight: 700; transform: scale(1.05); }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            background: transparent;
+        }
+        .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
+
+        /* --- PROJECTS SECTION --- */
+        .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media (max-width: 900px) { .project-grid { grid-template-columns: 1fr; } section { padding: 80px 8%; } }
+
+        .grade-badge {
+            background: var(--accent);
+            color: #000;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <nav>
+        <div class="logo">UMESH JOSHI</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="about">
+        <div class="reveal active">
+            <p class="hero-tag">BATTERY ENGINEER • M.ENG</p>
+            <h1>Engineering the Next <br>Generation of <span style="color: var(--accent);">EV Power.</span></h1>
+            <p class="hero-desc">Innovating at <b>Mercedes-Benz AG</b>. Specialized in Battery Algorithms, Voltage Relaxation Modeling, and Machine Learning for predictive analysis.</p>
+            <div style="display: flex; gap: 15px;">
+                <a href="#experience" class="btn">Experience</a>
+                <a href="#contact" class="btn" style="border-color: #fff; color: #fff;">Connect</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title reveal">Professional Experience</h2>
+        
+        <div class="card reveal">
+            <div class="meta">
+                <span>Mercedes-Benz AG, Stuttgart</span>
+                <span>08.2025 – Ongoing</span>
+            </div>
+            <h3>Working Student – Battery Algorithms & ML</h3>
+            <ul>
+                <li>Researching voltage relaxation models for predictive analysis using supervised ML.</li>
+                <li>Structuring anomaly datasets from battery measurement data for future model validation.</li>
+            </ul>
+        </div>
+
+        <div class="card reveal">
+            <div class="meta">
+                <span>Mercedes-Benz AG</span>
+                <span>12.2024 – 07.2025</span>
+            </div>
+            <h3>Master Thesis – Battery Modeling <span class="grade-badge">Grade: 1.0</span></h3>
+            <ul>
+                <li>Developed advanced relaxation models for Li-Ion Batteries using Python frameworks.</li>
+                <li>Improved SOC estimation accuracy by 80–85% via adaptive optimization (CyIPOPT).</li>
+            </ul>
+        </div>
+
+        <div class="card reveal">
+            <div class="meta">
+                <span>ElringKlinger AG</span>
+                <span>2023 – 2024</span>
+            </div>
+            <h3>Battery System Tests & Validation</h3>
+            <ul>
+                <li>Automated measurement analysis using MATLAB, reducing workload by 95%.</li>
+                <li>Executed test cases for battery cells and contributed to ECU hardware design.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title reveal">Key Engineering Projects</h2>
+        <div class="project-grid">
+            <div class="card reveal">
+                <h3>Space Shuttle Launch System</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 15px;">Bachelor Thesis | Mumbai University</p>
+                <p>Designed a linear electromagnetic accelerator to achieve high launch accelerations with minimal mechanical wear. Research published in IJERT.</p>
+            </div>
+            <div class="card reveal">
+                <h3>DC Motor Speed Control</h3>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 15px;">Diploma Thesis | MSBTE</p>
+                <p>Implemented PWM techniques via Arduino and IGBT for constant speed control under variable loads.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title reveal">Technical Stack</h2>
+        <div class="skills-grid reveal">
+            <div class="skill-item">MATLAB / Simulink</div>
+            <div class="skill-item">Python (Pandas/NumPy)</div>
+            <div class="skill-item">Machine Learning</div>
+            <div class="skill-item">CST Studio Suite</div>
+            <div class="skill-item">CANalyzer / CANoe</div>
+            <div class="skill-item">AUTOSAR</div>
+            <div class="skill-item">PREEvision</div>
+            <div class="skill-item">Battery Modeling</div>
+            <div class="skill-item">Vector Analysis</div>
+            <div class="skill-item">C / C++</div>
+            <div class="skill-item">GitHub / Version Control</div>
+            <div class="skill-item">System Engineering</div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2 class="section-title reveal">Education</h2>
+        <div class="card reveal">
+            <div class="meta"><span>Hochschule Stralsund, Germany</span><span>2022 – 2025</span></div>
+            <h3>M.Eng in Renewable Energies & E-Mobility</h3>
+        </div>
+        <div class="card reveal">
+            <div class="meta"><span>University of Mumbai, India</span><span>2018 – 2021</span></div>
+            <h3>B.Eng in Electrical Engineering</h3>
+        </div>
+    </section>
+
+    <section id="contact" style="text-align: center;">
+        <h2 class="section-title reveal" style="justify-content: center;">Get In Touch</h2>
+        <div class="reveal">
+            <p class="hero-desc" style="margin: 0 auto 40px auto;">Based in Esslingen/Stuttgart. Open to opportunities in Battery Management Systems (BMS) and EV System Development.</p>
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <a href="mailto:your-email@example.com" class="btn">Send Email</a>
+                <a href="https://linkedin.com" target="_blank" class="btn" style="border-color: #fff; color: #fff;">LinkedIn Profile</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Reveal elements on scroll
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add("active");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+    </script>
+</body>
+</html>
