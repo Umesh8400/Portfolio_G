@@ -3,247 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umesh Joshi | Battery Systems Engineer</title>
+    <title>Umesh Joshi | Battery Engineer Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg: #030712;
-            --card-bg: rgba(17, 25, 40, 0.75);
-            --accent: #38bdf8;
-            --text-main: #f8fafc;
+            --primary: #38bdf8;
+            --bg: #0f172a;
+            --card: rgba(30, 41, 59, 0.7);
+            --text: #f1f5f9;
             --text-dim: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent: #0ea5e9;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; font-family: 'Segoe UI', Roboto, sans-serif; }
 
         body {
             background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
+            color: var(--text);
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.05) 0px, transparent 50%);
         }
 
-        /* --- BACKGROUND RADIANT --- */
-        .blob {
+        /* --- HEADER & NAV --- */
+        header {
             position: fixed;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1; filter: blur(50px);
-            animation: move 20s infinite alternate;
-        }
-
-        @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(100%, 50%); }
-        }
-
-        /* --- LAYOUT --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        
-        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 80px 0; }
-
-        /* --- GLASS CARD --- */
-        .glass-card {
-            background: var(--card-bg);
+            top: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
         }
 
-        /* --- HERO SECTION --- */
-        .hero { text-align: center; }
-        .hero h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero h2 { font-size: 1.5rem; color: var(--accent); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px; }
-        .hero p { max-width: 700px; margin: 0 auto; color: var(--text-dim); font-size: 1.1rem; }
-
-        /* --- EDUCATION GRID (Consolidated) --- */
-        .edu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .edu-item {
-            padding: 25px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 15px;
-            border-left: 4px solid var(--accent);
+
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { 
+            text-decoration: none; color: var(--text-dim); 
+            font-size: 0.9rem; font-weight: 500; text-transform: uppercase; 
+            transition: 0.3s; letter-spacing: 1px;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        .lang-btn {
+            background: var(--primary);
+            color: var(--bg);
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
             transition: 0.3s;
         }
-        .edu-item:hover { background: rgba(255,255,255,0.07); transform: translateY(-5px); }
-        .edu-date { font-size: 0.85rem; color: var(--accent); font-weight: bold; }
-        .edu-grade { color: #10b981; font-weight: bold; margin-top: 5px; display: block; }
+        .lang-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(56,189,248,0.4); }
 
-        /* --- EXPERIENCE --- */
-        .exp-box { margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 30px; }
-        .exp-box:last-child { border: none; }
-        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-        .role-title { color: var(--accent); font-size: 1.3rem; }
-        
-        /* --- SKILLS --- */
-        .skills-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-        .skill-tag { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2); color: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+        /* --- SECTIONS --- */
+        section { 
+            padding: 100px 20px; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        section.visible { opacity: 1; transform: translateY(0); }
 
-        /* --- NAVIGATION --- */
-        nav { position: fixed; top: 0; width: 100%; padding: 20px 0; z-index: 1000; background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(10px); }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .lang-toggle { cursor: pointer; border: 1px solid var(--accent); color: var(--accent); background: transparent; padding: 5px 15px; border-radius: 5px; font-weight: bold; }
-        .lang-toggle:hover { background: var(--accent); color: var(--bg); }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--primary);
+        }
+        .section-title::after { content: ""; height: 1px; background: var(--border); flex-grow: 1; }
 
-        /* --- SECTION TITLES --- */
-        .section-title { font-size: 2.5rem; margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
-        .section-title::after { content: ""; height: 1px; flex-grow: 1; background: var(--glass-border); }
+        /* --- HERO --- */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 180px;
+            min-height: 80vh;
+        }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .exp-header { flex-direction: column; }
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 15px; }
+        .hero-text h2 { font-size: 1.5rem; color: var(--text-dim); margin-bottom: 25px; font-weight: 400; }
+
+        .avatar-container {
+            position: relative;
+            flex-shrink: 0;
+            margin-left: 50px;
+        }
+        .avatar-img {
+            width: 320px; height: 320px;
+            border-radius: 30px;
+            object-fit: cover;
+            border: 2px solid var(--border);
+            background: var(--card);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .status-badge {
+            position: absolute; bottom: 20px; right: -10px;
+            background: #10b981; color: white;
+            padding: 5px 15px; border-radius: 20px;
+            font-size: 0.8rem; font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        /* --- CARDS & GRID --- */
+        .glass-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+        .glass-card:hover { border-color: var(--primary); }
+
+        /* EDUCATION GRID */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .edu-card {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border-top: 3px solid var(--primary);
+        }
+        .edu-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text); }
+        .date-tag { font-size: 0.8rem; color: var(--primary); font-weight: bold; margin-bottom: 8px; display: block; }
+
+        /* EXPERIENCE */
+        .exp-item {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 2px solid var(--border);
+        }
+        .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+        .exp-item h3 { color: var(--primary); font-size: 1.3rem; }
+        .exp-item ul { list-style: none; margin-top: 10px; }
+        .exp-item li { margin-bottom: 8px; color: var(--text-dim); position: relative; padding-left: 15px; }
+        .exp-item li::before { content: "▹"; position: absolute; left: 0; color: var(--primary); }
+
+        /* SKILLS */
+        .skills-group { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag { 
+            background: var(--glass); border: 1px solid var(--border); 
+            padding: 8px 18px; border-radius: 8px; font-size: 0.85rem; 
+            transition: 0.3s;
+        }
+        .skill-tag:hover { background: rgba(56,189,248,0.1); border-color: var(--primary); color: var(--primary); }
+
+        /* PROJECTS */
+        .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        /* CONTACT */
+        .contact-btns { display: flex; gap: 15px; margin-top: 30px; }
+        .btn {
+            padding: 12px 30px; border-radius: 10px; text-decoration: none;
+            font-weight: bold; transition: 0.3s; display: flex; align-items: center; gap: 10px;
+        }
+        .btn-primary { background: var(--primary); color: var(--bg); }
+        .btn-outline { border: 1px solid var(--border); color: var(--text); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+        @keyframes pulse { 
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } 
+        }
+
+        @media (max-width: 900px) {
+            .hero-section { flex-direction: column-reverse; text-align: center; padding-top: 120px; }
+            .avatar-container { margin-left: 0; margin-bottom: 40px; }
+            .edu-grid, .project-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Mobile simplicity */
         }
     </style>
 </head>
 <body>
 
-    <div class="blob"></div>
-
-    <nav>
-        <div class="container nav-inner">
-            <div style="font-weight: 800; font-size: 1.2rem;">UYJ<span style="color: var(--accent);">.</span></div>
-            <button class="lang-toggle" onclick="toggleLang()">DE / EN</button>
+    <header>
+        <div class="nav-container">
+            <div style="font-weight: 900; font-size: 1.4rem; letter-spacing: -1px;">UMESH<span style="color: var(--primary);">.</span></div>
+            <div class="nav-links">
+                <a href="#about" id="nav-about">About</a>
+                <a href="#experience" id="nav-exp">Experience</a>
+                <a href="#education" id="nav-edu">Education</a>
+                <a href="#skills" id="nav-skills">Skills</a>
+                <a href="#projects" id="nav-proj">Projects</a>
+                <a href="#connect" id="nav-conn">Connect</a>
+                <button class="lang-btn" onclick="toggleLanguage()">DE / EN</button>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <main class="container">
+    <section id="about" class="hero-section">
+        <div class="hero-text">
+            <h2 id="hero-greet">Hello, I am</h2>
+            <h1 id="hero-name">Umesh Yadneshwar Joshi</h1>
+            <h2 id="hero-sub">M.Eng. in Renewable Energies & E-Mobility</h2>
+            <p id="hero-desc" style="color: var(--text-dim); font-size: 1.1rem; max-width: 600px; line-height: 1.8;">
+                An innovative Electrical Engineer specializing in Battery Development, Algorithms, and System Validation. Currently advancing EV technology at Mercedes-Benz AG in Stuttgart.
+            </p>
+            <div class="contact-btns">
+                <a href="#connect" class="btn btn-primary" id="btn-hire">Let's Talk</a>
+                <a href="mailto:umeshjoshi@example.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Email</a>
+            </div>
+        </div>
+        <div class="avatar-container">
+            <img src="avatar.jpg" alt="Umesh Joshi" class="avatar-img">
+            <div class="status-badge">Available for Projects</div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title"><i class="fas fa-briefcase"></i> <span id="title-exp">Experience</span></h2>
         
-        <section id="hero" class="hero">
-            <h2 id="hero-sub">Battery Systems & Algorithms</h2>
-            <h1 id="hero-title">Umesh Joshi</h1>
-            <p id="hero-desc">Advancing EV technology at Mercedes-Benz AG. Specializing in voltage relaxation modeling, SOC estimation, and Machine Learning for predictive battery analysis.</p>
-        </section>
-
-        <section id="education">
-            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> <span id="title-edu">Education</span></h2>
-            <div class="glass-card">
-                <div class="edu-grid">
-                    <div class="edu-item">
-                        <div class="edu-date">2022 — 2025</div>
-                        <h3>Hochschule Stralsund</h3>
-                        <p id="edu1-name">M.Eng. Renewable Energies & E-Mobility</p>
-                        <small>Focus: Vehicle Management, Hydrogen Tech, Control Systems</small>
-                    </div>
-                    <div class="edu-item">
-                        <div class="edu-date">2018 — 2021</div>
-                        <h3>University of Mumbai</h3>
-                        <p id="edu2-name">B.Eng. Electrical Engineering</p>
-                        <span class="edu-grade">Grade: 1.3</span>
-                        <small>Focus: Power Electronics, Electric Machines, Drives</small>
-                    </div>
-                    <div class="edu-item">
-                        <div class="edu-date">2015 — 2018</div>
-                        <h3>MSBTE India</h3>
-                        <p id="edu3-name">Diploma in Electrical Engineering</p>
-                        <span class="edu-grade">Grade: 1.9</span>
-                        <small>Focus: Microcontrollers, AC Machines, Circuit Networks</small>
-                    </div>
+        <div class="glass-card">
+            <div class="exp-item">
+                <div class="exp-header">
+                    <h3 id="exp1-title">Mercedes-Benz AG | Battery Development</h3>
+                    <span class="date-tag">08.2025 — Present</span>
                 </div>
+                <h4 id="exp1-role">Working Student – Algorithms & Applications</h4>
+                <ul id="exp1-list">
+                    <li>Researching voltage relaxation models within a supervised Machine Learning framework.</li>
+                    <li>Creating anomaly datasets and structured catalogs for predictive analysis.</li>
+                </ul>
             </div>
-        </section>
 
-        <section id="experience">
-            <h2 class="section-title"><i class="fas fa-briefcase"></i> <span id="title-exp">Experience</span></h2>
-            
-            <div class="glass-card">
-                <div class="exp-box">
-                    <div class="exp-header">
-                        <div>
-                            <h3 class="role-title" id="exp1-role">Working Student – Battery Algorithms</h3>
-                            <p>Mercedes-Benz AG, Stuttgart</p>
-                        </div>
-                        <div class="edu-date">08.2025 — Present</div>
-                    </div>
-                    <ul id="exp1-desc">
-                        <li>Extending voltage relaxation models via Supervised Machine Learning.</li>
-                        <li>Building anomaly datasets and structured catalogs for battery measurement data.</li>
-                    </ul>
+            <div class="exp-item">
+                <div class="exp-header">
+                    <h3 id="exp2-title">Mercedes-Benz AG | Master Thesis</h3>
+                    <span class="date-tag">12.2024 — 07.2025</span>
                 </div>
+                <h4 id="exp2-role">Battery Modeling & Prediction (Grade: 1.0)</h4>
+                <ul id="exp2-list">
+                    <li>Developed advanced relaxation models for Li-Ion Batteries using Python.</li>
+                    <li>Improved SOC estimation accuracy by 80–85% using adaptive optimization.</li>
+                </ul>
+            </div>
 
-                <div class="exp-box">
-                    <div class="exp-header">
-                        <div>
-                            <h3 class="role-title" id="exp2-role">Master Thesis (Grade: 1.0)</h3>
-                            <p>Mercedes-Benz AG, Stuttgart</p>
-                        </div>
-                        <div class="edu-date">12.2024 — 07.2025</div>
-                    </div>
-                    <ul id="exp2-desc">
-                        <li>Developed advanced Li-ion relaxation models using Python and CyIPOPT.</li>
-                        <li>Improved model accuracy by 85% for better SOC estimation.</li>
-                    </ul>
+            <div class="exp-item">
+                <div class="exp-header">
+                    <h3>ElringKlinger AG</h3>
+                    <span class="date-tag">05.2023 — 01.2024</span>
                 </div>
+                <h4 id="exp3-role">Working Student / Intern – Battery Validation</h4>
+                <ul id="exp3-list">
+                    <li>Tested battery components and cells with X-Frame and DIAdem.</li>
+                    <li>Conducted impedance measurements and hardware ECU design support.</li>
+                </ul>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="skills">
-            <h2 class="section-title"><i class="fas fa-tools"></i> <span id="title-skills">Technical Toolbox</span></h2>
+    <section id="education">
+        <h2 class="section-title"><i class="fas fa-graduation-cap"></i> <span id="title-edu">Education</span></h2>
+        <div class="edu-grid">
+            <div class="edu-card">
+                <span class="date-tag">2022 — 2025</span>
+                <h3>Hochschule Stralsund</h3>
+                <p id="edu1-name">M.Eng. Renewable Energies & E-Mobility</p>
+                <small id="edu1-focus">Focus: Vehicle Management, Simulation, Hydrogen Tech.</small>
+            </div>
+            <div class="edu-card">
+                <span class="date-tag">2018 — 2021</span>
+                <h3>University of Mumbai</h3>
+                <p id="edu2-name">B.Eng. Electrical Engineering</p>
+                <div style="color: #10b981; font-weight: bold; margin: 5px 0;">Grade: 1.3</div>
+                <small id="edu2-focus">Focus: Power Electronics, Electric Machines, Drives.</small>
+            </div>
+            <div class="edu-card">
+                <span class="date-tag">2015 — 2018</span>
+                <h3>MSBTE Mumbai</h3>
+                <p id="edu3-name">Diploma in Electrical Engineering</p>
+                <div style="color: #10b981; font-weight: bold; margin: 5px 0;">Grade: 1.9</div>
+                <small id="edu3-focus">Focus: Circuits, AC Machines, Microcontrollers.</small>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title"><i class="fas fa-microchip"></i> <span id="title-skills">Technical Skills</span></h2>
+        <div class="glass-card">
+            <div class="skills-group" id="skills-container">
+                </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title"><i class="fas fa-project-diagram"></i> <span id="title-proj">Projects</span></h2>
+        <div class="project-grid">
             <div class="glass-card">
-                <div class="skills-container" id="skills-list">
-                    </div>
+                <h3 id="p1-title">Electromagnetic Launch System</h3>
+                <p id="p1-desc" style="color: var(--text-dim); margin: 10px 0;">Developed a linear electromagnetic accelerator for space shuttle launches. Published in IJERT.</p>
+                <span class="date-tag">Bachelor Thesis</span>
             </div>
-        </section>
+            <div class="glass-card">
+                <h3 id="p2-title">Arduino PWM Motor Control</h3>
+                <p id="p2-desc" style="color: var(--text-dim); margin: 10px 0;">Designed constant speed control for DC motors using PWM and IGBT techniques.</p>
+                <span class="date-tag">Diploma Project</span>
+            </div>
+        </div>
+    </section>
 
-    </main>
+    <section id="connect">
+        <h2 class="section-title"><i class="fas fa-paper-plane"></i> <span id="title-conn">Let's Connect</span></h2>
+        <div class="glass-card" style="text-align: center;">
+            <p id="conn-text">Interested in discussing battery technology or future collaborations?</p>
+            <div class="contact-btns" style="justify-content: center;">
+                <a href="#" class="btn btn-primary"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="#" class="btn btn-outline"><i class="fab fa-xing"></i> XING</a>
+                <a href="mailto:umeshjoshi@example.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Email Me</a>
+            </div>
+        </div>
+    </section>
 
     <script>
-        const translations = {
+        const data = {
             en: {
-                heroSub: "Battery Systems & Algorithms",
-                heroDesc: "Advancing EV technology at Mercedes-Benz AG. Specializing in voltage relaxation modeling, SOC estimation, and Machine Learning for predictive battery analysis.",
-                titleEdu: "Education",
+                navAbout: "About", navExp: "Experience", navEdu: "Education", navSkills: "Skills", navProj: "Projects", navConn: "Connect",
+                heroGreet: "Hello, I am", heroSub: "M.Eng. in Renewable Energies & E-Mobility",
+                heroDesc: "An innovative Electrical Engineer specializing in Battery Development, Algorithms, and System Validation. Currently advancing EV technology at Mercedes-Benz AG in Stuttgart.",
                 titleExp: "Professional Experience",
-                titleSkills: "Technical Toolbox",
-                exp1Role: "Working Student – Battery Algorithms",
-                exp1Desc: "<li>Extending voltage relaxation models via Supervised Machine Learning.</li><li>Building anomaly datasets for predictive analysis.</li>",
+                exp1Title: "Mercedes-Benz AG | Battery Development",
+                exp1Role: "Working Student – Algorithms & Applications",
+                exp1List: "<li>Researching voltage relaxation models within a supervised Machine Learning framework.</li><li>Creating anomaly datasets and structured catalogs for predictive analysis.</li>",
                 exp2Role: "Master Thesis (Grade: 1.0)",
-                exp2Desc: "<li>Developed Li-ion relaxation models using Python.</li><li>Improved model accuracy by 85% for SOC estimation.</li>"
+                exp2List: "<li>Developed advanced relaxation models for Li-Ion Batteries using Python.</li><li>Improved SOC estimation accuracy by 85% via adaptive optimization.</li>",
+                titleEdu: "Education",
+                edu1Name: "M.Eng. Renewable Energies", edu1Focus: "Focus: Vehicle Management, Simulation, Hydrogen Tech.",
+                edu2Name: "B.Eng. Electrical Engineering", edu2Focus: "Focus: Power Electronics, Machines, Drives.",
+                edu3Name: "Diploma in Electrical Engineering", edu3Focus: "Focus: Circuits, Microcontrollers.",
+                titleSkills: "Technical Skills",
+                titleProj: "Key Projects",
+                p1Title: "Electromagnetic Launch System", p1Desc: "Developed a linear electromagnetic accelerator for space shuttle launches. Published in IJERT.",
+                p2Title: "Arduino PWM Motor Control", p2Desc: "Designed constant speed control for DC motors using PWM and IGBT techniques.",
+                titleConn: "Let's Connect", connText: "Interested in discussing battery technology or future collaborations?",
+                btnHire: "Let's Talk"
             },
             de: {
-                heroSub: "Batteriesysteme & Algorithmen",
-                heroDesc: "Weiterentwicklung der EV-Technologie bei der Mercedes-Benz AG. Spezialisiert auf Spannungsrelaxationsmodellierung, SOC-Schätzung und Machine Learning.",
-                titleEdu: "Ausbildung",
+                navAbout: "Über mich", navExp: "Erfahrung", navEdu: "Bildung", navSkills: "Fähigkeiten", navProj: "Projekte", navConn: "Kontakt",
+                heroGreet: "Hallo, ich bin", heroSub: "M.Eng. Erneuerbare Energien & E-Mobilität",
+                heroDesc: "Ein innovativer Elektroingenieur, spezialisiert auf Batterieentwicklung, Algorithmen und Systemvalidierung. Derzeit tätig bei der Mercedes-Benz AG in Stuttgart.",
                 titleExp: "Berufserfahrung",
-                titleSkills: "Technische Fähigkeiten",
-                exp1Role: "Werkstudent – Batteriealgorithmen",
-                exp1Desc: "<li>Erweiterung von Spannungsrelaxationsmodellen mittels Supervised Machine Learning.</li><li>Erstellung von Anomalie-Datensätzen zur prädiktiven Analyse.</li>",
+                exp1Title: "Mercedes-Benz AG | Batterieentwicklung",
+                exp1Role: "Werkstudent – Algorithmen & Anwendungen",
+                exp1List: "<li>Grundlagenforschung zur Erweiterung des Spannungsrelaxationsmodells (ML).</li><li>Erstellung von Anomalie-Datensätzen zur prädiktiven Analyse.</li>",
                 exp2Role: "Masterarbeit (Note: 1.0)",
-                exp2Desc: "<li>Entwicklung von Relaxationsmodellen für Li-Ionen-Batterien mit Python.</li><li>Verbesserung der Modellgenauigkeit um 85% zur SOC-Schätzung.</li>"
+                exp2List: "<li>Modellierung des Spannungsrelaxationsverhaltens von LIBs mit Python.</li><li>Verbesserung der SOC-Schätzgenauigkeit um 85%.</li>",
+                titleEdu: "Ausbildung",
+                edu1Name: "M.Eng. Erneuerbare Energien", edu1Focus: "Schwerpunkt: Fahrzeugmanagement, Simulation, Wasserstoff.",
+                edu2Name: "B.Eng. Elektrotechnik", edu2Focus: "Schwerpunkt: Leistungselektronik, Maschinen, Antriebe.",
+                edu3Name: "Diplom in Elektrotechnik", edu3Focus: "Schwerpunkt: Schaltungen, Mikrocontroller.",
+                titleSkills: "Fachkenntnisse",
+                titleProj: "Wichtige Projekte",
+                p1Title: "Elektromagnetisches Startsystem", p1Desc: "Entwicklung eines linearen elektromagnetischen Beschleunigers. Veröffentlicht in IJERT.",
+                p2Title: "Arduino PWM Motorsteuerung", p2Desc: "Konstante Drehzahlregelung eines DC-Motors mittels PWM-Technik.",
+                titleConn: "Kontakt aufnehmen", connText: "Interessiert an Batterietechnologie oder zukünftiger Zusammenarbeit?",
+                btnHire: "Kontakt"
             }
         };
 
-        const skills = ["MATLAB/Simulink", "Python (Pandas, NumPy)", "Machine Learning", "CST Studio Suite", "CANoe", "CANalyzer", "PREEvision", "AUTOSAR", "C/C++", "Impedance Spectroscopy"];
+        const skills = ["MATLAB/Simulink", "Python (Pandas, NumPy)", "Machine Learning", "CST Studio Suite", "CANoe", "CANalyzer", "PREEvision", "AUTOSAR", "C/C++", "LT Spice", "Impedance Analysis"];
         
         let currentLang = 'en';
 
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'de' : 'en';
+            const t = data[currentLang];
+            
+            // Apply translations
+            for (let id in t) {
+                const el = document.getElementById(id.replace(/([A-Z])/g, "-$1").toLowerCase());
+                if (el) el.innerHTML = t[id];
+            }
+            renderSkills();
+        }
+
         function renderSkills() {
-            const container = document.getElementById('skills-list');
+            const container = document.getElementById('skills-container');
             container.innerHTML = skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
         }
 
-        function toggleLang() {
-            currentLang = currentLang === 'en' ? 'de' : 'en';
-            const t = translations[currentLang];
-            
-            document.getElementById('hero-sub').innerText = t.heroSub;
-            document.getElementById('hero-desc').innerText = t.heroDesc;
-            document.getElementById('title-edu').innerText = t.titleEdu;
-            document.getElementById('title-exp').innerText = t.titleExp;
-            document.getElementById('title-skills').innerText = t.titleSkills;
-            document.getElementById('exp1-role').innerText = t.exp1Role;
-            document.getElementById('exp1-desc').innerHTML = t.exp1Desc;
-            document.getElementById('exp2-role').innerText = t.exp2Role;
-            document.getElementById('exp2-desc').innerHTML = t.exp2Desc;
-        }
+        // Scroll Animation Logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
 
         window.onload = renderSkills;
     </script>
